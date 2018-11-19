@@ -8,7 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -27,7 +30,7 @@ public class Main extends Application {
         window = primaryStage;
 
         StackPane layout1 = new StackPane();
-        StackPane layout2 = new StackPane();
+        Pane layout2 = new HBox();
 
         scene1 = new MenuScene(this, layout1);
 
