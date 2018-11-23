@@ -5,7 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class AsideVue {
+public class GameVue extends Vue{
+
+    ImageView img = new ImageView(new Image("https://lasueur.com/wp-content/uploads/2018/06/Pokemon.jpg"));
+
+
 
     Label nbCoups = new Label("0");
     Label nom = new Label("Map de xxxxx");
