@@ -10,14 +10,17 @@ import javafx.stage.Stage;
 
 public class Controller {
     Stage window;
+    Modele modele;
     FacadeVues facade;
 
-    public Controller(Stage win, FacadeVues f){
+    public Controller(Stage win, FacadeVues f, Modele modele){
         window = win;
         facade = f;
+        this.modele = modele;
 
         f.mv.goToGame.setOnAction(new GoToGame());
         f.gv.back.setOnAction(new GoToMenu());
+        f.gv.btnRi.setOnAction(new MoveRight());
 
         window.setTitle("Home");
         Scene scene1 = MonteurMenu.createScene(facade.mv);
@@ -45,6 +48,15 @@ public class Controller {
             window.setScene(scene1);
 
 
+        }
+    }
+
+    class MoveRight implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            modele.nbCoups++;
+            modele.notifier();
         }
     }
 
