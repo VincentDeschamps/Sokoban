@@ -1,6 +1,6 @@
 package sample;
 
-public class Joueur {
+public class Joueur implements GameObject{
 
     int posX;
     int posY;
@@ -12,6 +12,8 @@ public class Joueur {
         this.posY = posY;
     }
 
+
+    //TODO : Ajouter conditions si plusieurs caisses devant le joueur
     void moveRight(){
        // if (this.posX >= map.longueur)
             this.posX++;
