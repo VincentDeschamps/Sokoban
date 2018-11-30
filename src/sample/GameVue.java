@@ -11,8 +11,6 @@ public class GameVue extends Vue implements Observer {
 
     ImageView img = new ImageView(new Image("https://lasueur.com/wp-content/uploads/2018/06/Pokemon.jpg"));
 
-
-
     Label nbCoups;
     Label nom;
     Button btnRep;

@@ -1,8 +1,6 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -21,6 +19,7 @@ public class Main extends Application {
 
         Modele m = new Modele();
         FacadeVues facade = new FacadeVues(new GameVue(m),new MenuVue(m));
+
         Controller ctrl = new Controller(window, facade, m);
 
         window.show();
