@@ -1,10 +1,16 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +36,24 @@ public class Controller {
         window.setScene(scene1);
 
         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(this.changeGrid, 0, 1, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this.changeGrid, 0, 500, TimeUnit.MILLISECONDS);
+
+        this.modele.mapPool = loadMaps();
+        this.modele.notifier();
+        f.mv.choixTableau.setOnAction(new loadMap());
+    }
+
+    public ObservableList<String> loadMaps() {
+        ObservableList<String> maps =  FXCollections.observableArrayList();
+
+        File directory = new File("src"+File.separator+"tableaux");
+
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            maps.add(file.getName());
+        }
+        return maps;
     }
 
     class Animate implements Runnable {
@@ -42,10 +65,33 @@ public class Controller {
 
         public void run() {
             modele.animationMenu = modele.frameList.get(indiceFrame);
-            System.out.println("indiceFrame "+ indiceFrame);
             modele.notifier();
 
             this.indiceFrame =  this.indiceFrame+1 < modele.frameList.size() ? this.indiceFrame+1 : 0;
+        }
+    }
+
+    class loadMap implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent event) {
+            modele.mapFile.clear();
+            String map = facade.mv.choixTableau.getValue().toString();
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(new File("src"+File.separator+"tableaux"+File.separator+map)))) {
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    char[] lineArray = line.toCharArray();
+                    modele.mapFile.add(lineArray);
+                    System.out.println(line);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(map);
         }
     }
 
@@ -56,7 +102,6 @@ public class Controller {
             window.setTitle("Game");
             Scene scene2 = MonteurGame.createScene(facade.gv);
             window.setScene(scene2);
-
         }
     }
 
