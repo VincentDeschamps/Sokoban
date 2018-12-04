@@ -1,14 +1,18 @@
 package sample;
 
+import javafx.scene.image.Image;
+
 public class CaseArrive implements GameObject {
 
     int posX;
     int posY;
+    Image img;
     boolean containsCrate;
 
-    CaseArrive(int posX, int posY, boolean containsCrate){
+    CaseArrive(int posX, int posY, Image img,boolean containsCrate){
         this.posX = posX;
         this.posY = posY;
+        this.img = img;
         this.containsCrate = containsCrate;
     }
 
