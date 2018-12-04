@@ -6,13 +6,12 @@ public class Caisse implements GameObject{
 
     int posX;
     int posY;
-    Image img;
+    static Image img;
     Modele m;
 
-    Caisse(int posX, int posY, Image img){
+    Caisse(int posX, int posY){
         this.posX = posX;
         this.posY = posY;
-        this.img = img;
     }
 
     @Override

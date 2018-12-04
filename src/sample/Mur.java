@@ -6,13 +6,12 @@ public class Mur implements GameObject{
 
     int posX;
     int posY;
-    Image img;
+    static Image img;
     Modele m;
 
-    Mur(int posX, int posY, Image img){
+    Mur(int posX, int posY){
         this.posX = posX;
         this.posY = posY;
-        this.img = img;
     }
 
     @Override
