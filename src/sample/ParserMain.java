@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class ParserMain {
 
     public static void main (String[] args){
-        String fic = "/home/etud/o2163473/Bureau/map1.xsb";
-        ArrayList<ArrayList<Character>> map;
+        String fic = "novoban01.xsb";
+        ArrayList<char[]> map;
         try {
             map = MapParser.parseMap(fic);
-            System.out.println(map);
             System.out.println("File found");
+            MapParser.readMap(map);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
