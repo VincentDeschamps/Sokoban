@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
+import java.util.concurrent.TimeUnit;
+
 public class MonteurMenu {
 
     MenuVue menuVue;
@@ -55,11 +57,12 @@ public class MonteurMenu {
 
         //Set the background
         layout.setBackground(new Background(mv.BGForMenu));
-        mapPreview.setBackground(new Background(mv.BGForPreview));
 
         //creating scene and adding style
         Scene scene = new Scene(layout, 1500, 720);
         scene.getStylesheets().add("sample/style.css");
+
+        mv.executorService.scheduleAtFixedRate(mv.changeGrid, 0, 500, TimeUnit.MILLISECONDS);
 
         return scene;
     }

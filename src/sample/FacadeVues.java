@@ -8,5 +8,4 @@ public class FacadeVues {
         this.gv = a;
         this.mv = menu;
     }
-
 }

@@ -12,11 +12,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Controller {
-    Runnable changeGrid;
     Stage window;
     Modele modele;
     FacadeVues facade;
@@ -25,7 +22,6 @@ public class Controller {
         window = win;
         facade = f;
         this.modele = modele;
-        this.changeGrid = new Animate();
 
         f.mv.goToGame.setOnAction(new GoToGame());
         f.gv.back.setOnAction(new GoToMenu());
@@ -35,15 +31,15 @@ public class Controller {
         Scene scene1 = MonteurMenu.createScene(facade.mv);
         window.setScene(scene1);
 
-        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(this.changeGrid, 0, 500, TimeUnit.MILLISECONDS);
-
-        this.modele.mapPool = loadMaps();
+        //charge into ObservableList<String> modele.mapPool the maps in src/tableaux/
+        this.modele.mapPool = getMaps();
         this.modele.notifier();
-        f.mv.choixTableau.setOnAction(new loadMap());
+        //puts a controller on the comboBox (when a map will be selected, it will be displayed)
+        f.mv.choixTableau.setOnAction(new LoadMap());
     }
 
-    public ObservableList<String> loadMaps() {
+    //get the files in src/tableaux
+    public ObservableList<String> getMaps() {
         ObservableList<String> maps =  FXCollections.observableArrayList();
 
         File directory = new File("src"+File.separator+"tableaux");
@@ -56,23 +52,9 @@ public class Controller {
         return maps;
     }
 
-    class Animate implements Runnable {
-        int indiceFrame;
-
-        Animate() {
-            this.indiceFrame = 0;
-        }
-
-        public void run() {
-            modele.animationMenu = modele.frameList.get(indiceFrame);
-            modele.notifier();
-
-            this.indiceFrame =  this.indiceFrame+1 < modele.frameList.size() ? this.indiceFrame+1 : 0;
-        }
-    }
-
-    class loadMap implements EventHandler<ActionEvent> {
-
+    //when a file is selected in the combo box, read it and put it in modele.mapFile
+    //format of mapFile : ArrayList<char[]>, each char[] correspond to one row
+    class LoadMap implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             modele.mapFile.clear();
@@ -99,6 +81,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
+            facade.mv.executorService.shutdown();
             window.setTitle("Game");
             Scene scene2 = MonteurGame.createScene(facade.gv);
             window.setScene(scene2);
@@ -109,6 +92,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
+            facade.mv.executorService = Executors.newSingleThreadScheduledExecutor();
             window.setTitle("Home");
             Scene scene1 = MonteurMenu.createScene(facade.mv);
             window.setScene(scene1);

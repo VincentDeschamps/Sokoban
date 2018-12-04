@@ -1,10 +1,15 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Main extends Application {
     public Stage window;
+    public ArrayList<ScheduledExecutorService> exe = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -23,6 +28,16 @@ public class Main extends Application {
         Controller ctrl = new Controller(window, facade, m);
 
         window.show();
+    }
+
+    @Override
+    public void stop()
+    {
+        Platform.exit();
+        for( ScheduledExecutorService sched : exe )
+        {
+            sched.shutdown();
+        }
     }
 
 
