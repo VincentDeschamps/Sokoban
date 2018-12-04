@@ -26,6 +26,12 @@ public class Joueur implements GameObject{
         return this.posY;
     }
 
+    @Override
+    public void ActualiserCoordonnees(int x, int y){
+        this.posX += x;
+        this.posY += y;
+    }
+
 
     //TODO : Ajouter conditions si plusieurs caisses devant le joueur
     void moveRight(){
@@ -48,7 +54,5 @@ public class Joueur implements GameObject{
             this.posY--;
     }
 
-    void ActualiserCoordonnees(int x, int y){
 
-    }
 }

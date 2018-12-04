@@ -25,6 +25,12 @@ public class Caisse implements GameObject{
         return this.posY;
     }
 
+    @Override
+    public void ActualiserCoordonnees(int x, int y){
+        this.posX += x;
+        this.posY += y;
+    }
+
     void move(int posX, int posY){
         this.posX += posX;
         this.posY += posY;

@@ -24,4 +24,10 @@ public class Mur implements GameObject{
     public int getPosY(){
         return this.posY;
     }
+
+    @Override
+    public void ActualiserCoordonnees(int x, int y){
+        this.posX += x;
+        this.posY += y;
+    }
 }
