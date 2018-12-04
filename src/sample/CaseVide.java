@@ -1,31 +1,27 @@
 package sample;
 
-import javafx.scene.image.Image;
-
-public class Mur implements GameObject{
+public class CaseVide implements GameObject {
 
     int posX;
     int posY;
-    static Image img;
-    Modele m;
 
-    Mur(int posX, int posY){
+    CaseVide(int posX, int posY){
         this.posX = posX;
         this.posY = posY;
     }
 
     @Override
-    public int getPosX(){
+    public int getPosX() {
         return this.posX;
     }
 
     @Override
-    public int getPosY(){
+    public int getPosY() {
         return this.posY;
     }
 
     @Override
-    public void ActualiserCoordonnees(int x, int y){
+    public void ActualiserCoordonnees(int x, int y) {
         this.posX += x;
         this.posY += y;
     }
