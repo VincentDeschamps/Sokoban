@@ -6,14 +6,13 @@ public class Joueur implements GameObject{
 
     int posX;
     int posY;
-    Image img;
+    static Image img;
     Modele m;
 
 
-    Joueur(int posX, int posY, Image img){
+    Joueur(int posX, int posY){
         this.posX = posX;
         this.posY = posY;
-        this.img = img;
     }
 
     @Override

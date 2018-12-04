@@ -12,6 +12,7 @@ public class MapParser {
 
         Scanner sc = new Scanner(f);
         ArrayList<ArrayList<GameObject>> res = new ArrayList<ArrayList<GameObject>>();
+        Joueur j = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(link)))) {
             String line;
@@ -29,16 +30,19 @@ public class MapParser {
                                     curLine.add(new Caisse(i,y));
                                     break;
                                 case '.':
-                                    curLine.add(null);
+                                    curLine.add(new CaseArrive(i,y, false));
                                     break;
                                 case '@':
-                                    curLine.add(null);
+                                    j = new Joueur(i,y);
+                                    curLine.add(j);
                                     break;
                                 case '+':
-                                    curLine.add(null);
+                                    curLine.add(new CaseArrive(i,y, false));
+                                    j = new Joueur(i,y);
+
                                     break;
                                 case ' ':
-                                    curLine.add(null);
+                                    curLine.add(new CaseVide(i,y));
                             }
                         }
                         res.add(curLine);
@@ -51,7 +55,7 @@ public class MapParser {
             e.printStackTrace();
         }
 
-        return new Map(res);
+        return new Map(res, j);
     }
 
     public static void readMap(ArrayList<char[]> map){

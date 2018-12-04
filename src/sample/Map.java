@@ -6,12 +6,15 @@ public class Map {
 
     ArrayList<ArrayList<GameObject>> map;
 
+    Joueur player;
+
     Map(){
         this.map = null;
     }
 
-    Map(ArrayList<ArrayList<GameObject>> map){
+    Map(ArrayList<ArrayList<GameObject>> map, Joueur j){
         this.map = map;
+        this.player = j;
     }
 
     void ActualiserGameObject(GameObject go){

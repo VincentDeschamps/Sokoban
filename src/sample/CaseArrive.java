@@ -6,13 +6,12 @@ public class CaseArrive implements GameObject {
 
     int posX;
     int posY;
-    Image img;
+    static Image img;
     boolean containsCrate;
 
-    CaseArrive(int posX, int posY, Image img,boolean containsCrate){
+    CaseArrive(int posX, int posY, boolean containsCrate){
         this.posX = posX;
         this.posY = posY;
-        this.img = img;
         this.containsCrate = containsCrate;
     }
 
