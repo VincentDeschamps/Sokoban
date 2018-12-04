@@ -21,4 +21,12 @@ public class Map {
     void ActualiserJoueur(Joueur j){
         map.get(j.getPosX()).set(j.getPosY(), j);
     }
+
+    void MovePlayer(Joueur j, int x, int y){
+        GameObject caseCible = map.get(j.getPosX() + x).get(j.getPosY() + y);
+        if (caseCible == null){
+          //  j.ActualiserCoordonnees(x,y);
+            ActualiserJoueur(j);
+        }
+    }
 }

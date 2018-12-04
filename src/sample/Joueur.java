@@ -47,4 +47,8 @@ public class Joueur implements GameObject{
        // if (this.posY <= map.hauteur)
             this.posY--;
     }
+
+    void ActualiserCoordonnees(int x, int y){
+
+    }
 }
