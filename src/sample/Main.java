@@ -1,9 +1,11 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.application.Platform;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class Main extends Application {
     public Stage window;
@@ -21,11 +23,10 @@ public class Main extends Application {
 
         Modele m = new Modele();
         FacadeVues facade = new FacadeVues(new GameVue(m),new MenuVue(m));
+
         Controller ctrl = new Controller(window, facade, m);
 
         window.show();
     }
-
-
 
 }

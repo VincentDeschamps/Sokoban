@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.scene.Scene;
-
 public class FacadeVues {
     public GameVue gv;
     public MenuVue mv;
@@ -10,5 +8,4 @@ public class FacadeVues {
         this.gv = a;
         this.mv = menu;
     }
-
 }
