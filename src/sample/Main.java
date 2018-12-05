@@ -9,7 +9,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class Main extends Application {
     public Stage window;
-    public ArrayList<ScheduledExecutorService> exe = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -29,17 +28,5 @@ public class Main extends Application {
 
         window.show();
     }
-
-    @Override
-    public void stop()
-    {
-        Platform.exit();
-        for( ScheduledExecutorService sched : exe )
-        {
-            sched.shutdown();
-        }
-    }
-
-
 
 }

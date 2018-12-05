@@ -11,10 +11,18 @@ public class MonteurMenu {
 
     MenuVue menuVue;
 
+    /**
+     * Builder for the application menu
+     */
     MonteurMenu(MenuVue menuVue){
         this.menuVue = menuVue;
     }
 
+    /**
+     * Takes a View and return a Scene ready to diaplay
+     * @params mv MenuVue : the view used to generate the scene
+     * @return Scene : the scene to be displayed
+     */
     public static Scene createScene(MenuVue mv){
         //creating borderPane for the scene
         BorderPane layout = new BorderPane();
@@ -61,8 +69,6 @@ public class MonteurMenu {
         //creating scene and adding style
         Scene scene = new Scene(layout, 1500, 720);
         scene.getStylesheets().add("sample/style.css");
-
-        mv.executorService.scheduleAtFixedRate(mv.changeGrid, 0, 500, TimeUnit.MILLISECONDS);
 
         return scene;
     }

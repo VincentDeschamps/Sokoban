@@ -13,6 +13,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 
+/**
+ * Controller
+ */
 public class Controller {
     Stage window;
     Modele modele;
@@ -38,7 +41,10 @@ public class Controller {
         f.mv.choixTableau.setOnAction(new LoadMap());
     }
 
-    //get the files in src/tableaux
+    /**
+     * Get the files in "src/tableaux" and put them in ObservableList maps
+     * @return "ObservableList<String>" containing the files names
+     */
     public ObservableList<String> getMaps() {
         ObservableList<String> maps =  FXCollections.observableArrayList();
 
@@ -52,8 +58,11 @@ public class Controller {
         return maps;
     }
 
-    //when a file is selected in the combo box, read it and put it in modele.mapFile
-    //format of mapFile : ArrayList<char[]>, each char[] correspond to one row
+    /**
+     * Called when a file is selected in the ComboBox, read it,
+     * transform its format to ArrayList<char[]> (each char[] correspond to one row)
+     * and put it in "modele.mapFile"
+     */
     class LoadMap implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
@@ -77,22 +86,30 @@ public class Controller {
         }
     }
 
+    /**
+     * Called when the user clicks on the "PLAY!" button on the menu
+     * Opens up the game scene
+     */
     class GoToGame implements EventHandler<ActionEvent> {
 
         @Override
         public void handle(ActionEvent event) {
-            facade.mv.executorService.shutdown();
+            facade.mv.changeGrid.pause();
             window.setTitle("Game");
             Scene scene2 = MonteurGame.createScene(facade.gv);
             window.setScene(scene2);
         }
     }
 
+    /**
+     * Called when the user clicks on the "BACK" button on the game scene
+     * Gets the user back to the menu scene
+     */
     class GoToMenu implements EventHandler<ActionEvent>{
 
         @Override
         public void handle(ActionEvent event) {
-            facade.mv.executorService = Executors.newSingleThreadScheduledExecutor();
+            facade.mv.changeGrid.release();
             window.setTitle("Home");
             Scene scene1 = MonteurMenu.createScene(facade.mv);
             window.setScene(scene1);

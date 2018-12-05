@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Modele {
@@ -24,7 +23,7 @@ public class Modele {
     public ArrayList<char[]> mapFile = new ArrayList<>();
 
     public Modele(){
-        subscribers = new ArrayList<Observer>();
+        subscribers = new ArrayList<>();
         nbCoups = 0;
         mapPool = FXCollections.observableArrayList();
     }
