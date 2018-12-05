@@ -2,40 +2,16 @@ package sample;
 
 import javafx.scene.image.Image;
 
-public class CaseArrive implements GameObject {
+public class CaseArrive extends Case {
 
-    int posX;
-    int posY;
-    static Image img;
-    boolean containsCrate;
+    public static String img;
 
-    CaseArrive(int posX, int posY, boolean containsCrate){
-        this.posX = posX;
-        this.posY = posY;
-        this.containsCrate = containsCrate;
+    public CaseArrive(int x, int y){
+        super(x,y);
     }
 
-    @Override
-    public int getPosX() {
-        return this.posX;
+    public CaseArrive(int x, int y, GameObject g){
+        super(x, y, g);
     }
 
-    @Override
-    public int getPosY() {
-        return this.posY;
-    }
-
-    void setContainsCrate(boolean status){
-        this.containsCrate = status;
-    }
-
-    @Override
-    public void ActualiserCoordonnees(int x, int y) {
-        this.posX += x;
-        this.posY += y;
-    }
-
-    public boolean contientUneCaisse(){
-        return containsCrate;
-    }
 }

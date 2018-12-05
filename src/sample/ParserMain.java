@@ -9,7 +9,7 @@ public class ParserMain {
         String fic = "novoban01.xsb";
         try {
             Map map = MapParser.parseMap(fic);
-            System.out.println("File found");
+            MapParser.readMap(map);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

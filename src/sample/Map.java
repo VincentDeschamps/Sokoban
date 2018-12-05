@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Map {
 
-    ArrayList<ArrayList<GameObject>> map;
+    public ArrayList<ArrayList<Case>> map;
 
     Joueur player;
 
@@ -12,13 +12,13 @@ public class Map {
         this.map = null;
     }
 
-    Map(ArrayList<ArrayList<GameObject>> map, Joueur j){
+    Map(ArrayList<ArrayList<Case>> map, Joueur j){
         this.map = map;
         this.player = j;
     }
 
     void ActualiserGameObject(GameObject go){
-        map.get(go.getPosX()).set(go.getPosY(), go);
+        map.get(go.getPosX()).get(go.getPosY()).addContent(go);
     }
 
     /**
@@ -26,16 +26,26 @@ public class Map {
      * @param  go  GameObject que l'on veut deplacer
      * @param  x   -1 ou 1 selon si on veux aller a gauche ou a droite (-1 pour gauche et 1 pour droite)
      * @param  y   -1 ou 1 selon si on veux aller en haut ou en bas (-1 pour haut et 1 pour bas)
-     * @return      Un booleen indiquant si le deplacement est valide ou non
+     * @return      Un booleen indiquant si le deplacement est valide ou non etg, s'il l'est, l'applique
      */
     boolean isMovable(GameObject go, int x, int y){
-        GameObject caseCible = map.get(go.getPosX() + x).get(go.getPosY() + y);
-        if(caseCible instanceof Mur || caseCible instanceof Caisse){
+        if (go.getPosY()+y <= map.size() | go.getPosY()+y < 0){
             return false;
         }
-        else{
+        if (map.get(go.getPosY()+y).size() <= go.getPosX()+x | go.getPosX()+x < 0){
+            return false;
+        }
+
+
+        Case nextCase = map.get(go.getPosY()+y).get(go.getPosX()+x);
+        if(nextCase.isFree() | (!(go instanceof Caisse) & nextCase.content instanceof Caisse & isMovable(nextCase.content, x, y))){
+            map.get(go.getPosY()).get(go.getPosX()).removeContent();
+            nextCase.addContent(go);
+            go.setX(go.getPosX()+x);
+            go.setY(go.getPosY()+y);
             return true;
         }
+        return false;
     }
 
     /**
@@ -45,8 +55,9 @@ public class Map {
      * @param  y   -1 ou 1 selon si on veux aller en haut ou en bas (-1 pour haut et 1 pour bas)
      * @result     Verifie si le deplacement est valide et deplace la caisse pousse ainsi que le joueur
      */
+    /*
     void MovePlayer(Joueur j, int x, int y){
-        GameObject caseCible = map.get(j.getPosX() + x).get(j.getPosY() + y);
+        GameObject caseCible = map.get(j.getPosX() + x).get(j.getPosY() + y).content;
         if (caseCible instanceof CaseVide || caseCible instanceof CaseArrive){
             caseCible.ActualiserCoordonnees(caseCible.getPosX()+x, caseCible.getPosY()+y);
             ActualiserGameObject(caseCible);
@@ -56,7 +67,7 @@ public class Map {
         else if (caseCible instanceof Caisse){
             if(isMovable(caseCible,x,y)){
                 if (caseCible instanceof CaseArrive){
-                    ((CaseArrive) caseCible).setContainsCrate(true);
+                   // ((CaseArrive) caseCible).setContainsCrate(true);
                 }
                 //TODO Gerer les non deplacements des CaseArrive et ne pas les supprimer en mettant une caisse ou joueur dessus
                 caseCible.ActualiserCoordonnees(caseCible.getPosX()+x, caseCible.getPosY()+y);
@@ -68,5 +79,5 @@ public class Map {
 
         else if (caseCible instanceof Mur){}
 
-    }
+    }*/
 }

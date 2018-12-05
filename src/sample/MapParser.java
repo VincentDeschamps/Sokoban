@@ -11,7 +11,7 @@ public class MapParser {
         File f = new File(link);
 
         Scanner sc = new Scanner(f);
-        ArrayList<ArrayList<GameObject>> res = new ArrayList<ArrayList<GameObject>>();
+        ArrayList<ArrayList<Case>> res = new ArrayList<ArrayList<Case>>();
         Joueur j = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(link)))) {
@@ -19,30 +19,33 @@ public class MapParser {
             int y = 0;
             while ((line = reader.readLine()) != null) {
                     char[] lineArray = line.toCharArray();
-                    ArrayList<GameObject> curLine = new ArrayList<GameObject>();
+                    ArrayList<Case> curLine = new ArrayList<Case>();
                     if(lineArray[0]!='T') {
                         for (int i = 0; i < lineArray.length; i++){
                             switch (lineArray[i]){
-                                case '#':
-                                    curLine.add(new Mur(i, y));
+                                case GameChars.WALL:
+                                    curLine.add(new Case(i, y, new Mur(i, y)));
                                     break;
-                                case '$':
-                                    curLine.add(new Caisse(i,y));
+                                case GameChars.CAISSECASE:
+                                    curLine.add(new Case (i, y, new Caisse(i,y)));
                                     break;
-                                case '.':
-                                    curLine.add(new CaseArrive(i,y, false));
+                                case GameChars.EMPTYARRIVED:
+                                    curLine.add(new CaseArrive(i,y));
                                     break;
-                                case '@':
+                                case GameChars.PLAYERCASE:
                                     j = new Joueur(i,y);
-                                    curLine.add(j);
+                                    curLine.add(new Case(i, y, j));
                                     break;
-                                case '+':
-                                    curLine.add(new CaseArrive(i,y, false));
+                                case GameChars.PLAYERARRIVEDCASE:
                                     j = new Joueur(i,y);
+                                    curLine.add(new CaseArrive(i,y,j));
 
                                     break;
-                                case ' ':
-                                    curLine.add(new CaseVide(i,y));
+                                case GameChars.EMPTYCASE:
+                                    curLine.add(new Case(i,y));
+                                    break;
+                                case GameChars.CAISSEARRIVED:
+                                    curLine.add(new CaseArrive(i, y, new Caisse(i,y)));
                             }
                         }
                         res.add(curLine);
@@ -58,11 +61,27 @@ public class MapParser {
         return new Map(res, j);
     }
 
-    public static void readMap(ArrayList<char[]> map){
+    public static void readMap(Map map){
         String res = "";
-        for(char[] c : map){
-            for(int i=0; i<c.length; i++){
-                res+=c[i];
+        for(ArrayList<Case> line : map.map){
+            for (Case c : line){
+                if (c instanceof CaseArrive){
+                    if (c.isFree()){
+                        res += GameChars.EMPTYARRIVED;
+                    } else if (c.content instanceof Joueur){
+                        res += GameChars.PLAYERARRIVEDCASE;
+                    } else {
+                        res += GameChars.CAISSEARRIVED;
+                    }
+                } else if (c.content == null){
+                    res += GameChars.EMPTYCASE;
+                } else if (c.content instanceof Caisse){
+                    res += GameChars.CAISSECASE;
+                } else if (c.content instanceof Mur){
+                    res += GameChars.WALL;
+                } else {
+                    res += GameChars.PLAYERCASE;
+                }
             }
             res+="\n";
         }
