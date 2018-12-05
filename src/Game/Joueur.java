@@ -1,14 +1,13 @@
-package sample;
+package Game;
 
 import javafx.scene.image.Image;
 
 public class Joueur extends GameObject{
 
-    static Image img;
-    Modele m;
+    public static final String img = "";
 
 
-    Joueur(int posX, int posY){
+    public Joueur(int posX, int posY){
         super(posX,posY);
     }
 

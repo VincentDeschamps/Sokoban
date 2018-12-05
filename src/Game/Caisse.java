@@ -1,13 +1,12 @@
-package sample;
+package Game;
 
 import javafx.scene.image.Image;
 
 public class Caisse extends GameObject{
 
-    public static String img;
-    Modele m;
+    public static final String img = "";
 
-    Caisse(int posX, int posY){
+    public Caisse(int posX, int posY){
         super(posX,posY);
     }
 }

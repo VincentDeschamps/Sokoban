@@ -1,7 +1,7 @@
-package sample;
+package Game;
 
 public class Case {
-    public static String img;
+    public static final String img = "";
 
     public GameObject content = null;
     private int x, y;

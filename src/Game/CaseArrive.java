@@ -1,10 +1,10 @@
-package sample;
+package Game;
 
 import javafx.scene.image.Image;
 
 public class CaseArrive extends Case {
 
-    public static String img;
+    public static final String img = "";
 
     public CaseArrive(int x, int y){
         super(x,y);

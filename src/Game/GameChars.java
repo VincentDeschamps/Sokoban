@@ -1,4 +1,4 @@
-package sample;
+package Game;
 
 public class GameChars {
     public static final char EMPTYCASE = ' ';

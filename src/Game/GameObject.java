@@ -1,4 +1,4 @@
-package sample;
+package Game;
 
 public abstract class GameObject {
     private int x, y;
@@ -9,10 +9,10 @@ public abstract class GameObject {
     }
 
     public int getPosX(){return x;}
-    int getPosY(){return y;}
+    public int getPosY(){return y;}
     //public abstract void ActualiserCoordonnees(int x, int y);
 
     public void setX(int i){x = i;}
 
-    void setY(int i){y = i;}
+    public void setY(int i){y = i;}
 }

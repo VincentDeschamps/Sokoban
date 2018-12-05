@@ -1,4 +1,4 @@
-package sample;
+package Game;
 
 import java.util.ArrayList;
 
@@ -6,18 +6,18 @@ public class Map {
 
     public ArrayList<ArrayList<Case>> map;
 
-    Joueur player;
+    public Joueur player;
 
-    Map(){
+    public Map(){
         this.map = null;
     }
 
-    Map(ArrayList<ArrayList<Case>> map, Joueur j){
+    public Map(ArrayList<ArrayList<Case>> map, Joueur j){
         this.map = map;
         this.player = j;
     }
 
-    void ActualiserGameObject(GameObject go){
+    public void ActualiserGameObject(GameObject go){
         map.get(go.getPosX()).get(go.getPosY()).addContent(go);
     }
 
@@ -28,7 +28,7 @@ public class Map {
      * @param  y   -1 ou 1 selon si on veux aller en haut ou en bas (-1 pour haut et 1 pour bas)
      * @return      Un booleen indiquant si le deplacement est valide ou non etg, s'il l'est, l'applique
      */
-    boolean isMovable(GameObject go, int x, int y){
+    public boolean isMovable(GameObject go, int x, int y){
         if (go.getPosY()+y <= map.size() | go.getPosY()+y < 0){
             return false;
         }

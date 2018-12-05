@@ -1,5 +1,7 @@
 package sample;
 
+import Game.*;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 

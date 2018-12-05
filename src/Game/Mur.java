@@ -1,12 +1,12 @@
-package sample;
+package Game;
 
 import javafx.scene.image.Image;
 
 public class Mur extends GameObject{
 
-    static Image img;
+    public static final String img = "";
 
-    Mur(int posX, int posY){
+    public Mur(int posX, int posY){
         super(posX,posY);
     }
 }
