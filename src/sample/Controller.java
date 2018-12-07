@@ -2,9 +2,11 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -39,6 +41,8 @@ public class Controller {
         this.modele.notifier();
         //puts a controller on the comboBox (when a map will be selected, it will be displayed)
         f.mv.choixTableau.setOnAction(new LoadMap());
+
+        f.gv.plateau.setOnKeyPressed(new PlayerInputs());
     }
 
     /**
@@ -98,6 +102,7 @@ public class Controller {
             window.setTitle("Game");
             Scene scene2 = MonteurGame.createScene(facade.gv);
             window.setScene(scene2);
+            facade.gv.plateau.requestFocus();
         }
     }
 
@@ -122,6 +127,17 @@ public class Controller {
         public void handle(ActionEvent event) {
             modele.nbCoups++;
             modele.notifier();
+        }
+    }
+
+    class PlayerInputs implements EventHandler<KeyEvent> {
+
+        @Override
+        public void handle(KeyEvent event) {
+            System.out.println("Coucou Tapé !");
+
+
+            event.consume();
         }
     }
 

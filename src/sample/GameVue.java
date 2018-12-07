@@ -4,12 +4,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 public class GameVue extends Vue implements Observer {
 
     Modele modele;
 
-    ImageView img = new ImageView(new Image("https://lasueur.com/wp-content/uploads/2018/06/Pokemon.jpg"));
+    GridPane plateau = new GridPane();
 
     Label nbCoups;
     Label nom;
@@ -37,6 +38,16 @@ public class GameVue extends Vue implements Observer {
         btnRi = new Button("->");
         btnLe = new Button("<-");
         back = new Button("back");
+
+        plateau.add(new Label("First"), 0,0);
+        plateau.add(new Label("First"), 0,1);
+        plateau.add(new Label("First"), 0,2);
+        plateau.add(new Label("First"), 1,0);
+        plateau.add(new Label("First"), 1,1);
+        plateau.add(new Label("First"), 1,2);
+        plateau.add(new Label("First"), 2,0);
+        plateau.add(new Label("First"), 2,1);
+        plateau.add(new Label("First"), 2,2);
     }
 
 

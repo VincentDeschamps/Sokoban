@@ -10,7 +10,7 @@ public class MonteurGame {
     public static Scene createScene(GameVue vue){
         Pane layout = new HBox();
 
-        layout.getChildren().add(vue.img);
+        layout.getChildren().add(vue.plateau);
 
         VBox layout2 = new VBox();
         layout2.getChildren().addAll(
@@ -24,6 +24,7 @@ public class MonteurGame {
                 vue.back
         );
         layout.getChildren().add(layout2);
+
 /*
 
 
