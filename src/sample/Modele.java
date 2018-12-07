@@ -1,5 +1,6 @@
 package sample;
 
+import Game.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,6 +23,8 @@ public class Modele {
     public String labelChoix = "Choisir un tableau : ";
     public ArrayList<char[]> mapFile = new ArrayList<>();
 
+    public Map map;
+
     public Modele(){
         subscribers = new ArrayList<>();
         nbCoups = 0;
@@ -37,6 +40,14 @@ public class Modele {
             ob.actualiser();
         }
 
+    }
+
+    public void createMap(String url) throws Exception{
+        try{
+            map = MapParser.parseMap(url);
+        } catch (Exception e){
+            throw e;
+        }
     }
 
 }

@@ -96,8 +96,14 @@ public class Controller {
         public void handle(ActionEvent event) {
             facade.mv.changeGrid.pause();
             window.setTitle("Game");
-            Scene scene2 = MonteurGame.createScene(facade.gv);
-            window.setScene(scene2);
+            try{
+                modele.createMap("src" + File.separator + "tableaux" + File.separator + facade.mv.choixTableau.getValue().toString());
+                Scene scene2 = MonteurGame.createScene(facade.gv);
+                window.setScene(scene2);
+                MapParser.readMap(modele.map);
+            } catch (Exception e){
+                System.out.print("error");
+            }
         }
     }
 
