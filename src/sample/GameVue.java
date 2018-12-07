@@ -13,8 +13,6 @@ public class GameVue extends Vue implements Observer {
 
     Modele modele;
 
-    ImageView img = new ImageView(new Image("https://lasueur.com/wp-content/uploads/2018/06/Pokemon.jpg"));
-
     GridPane map;
 
     Label nbCoups;
@@ -51,6 +49,7 @@ public class GameVue extends Vue implements Observer {
                 BackgroundRepeat.REPEAT,
                 BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
+
     }
 
 

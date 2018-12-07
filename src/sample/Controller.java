@@ -2,9 +2,12 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -12,6 +15,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Executors;
+
+import static javafx.scene.input.KeyCode.*;
 
 /**
  * Controller
@@ -39,6 +44,8 @@ public class Controller {
         this.modele.notifier();
         //puts a controller on the comboBox (when a map will be selected, it will be displayed)
         f.mv.choixTableau.setOnAction(new LoadMap());
+
+        f.gv.map.setOnKeyPressed(new PlayerInputs());
     }
 
     /**
@@ -101,6 +108,7 @@ public class Controller {
                 MapParser.readMap(modele.map);
                 Scene scene2 = MonteurGame.createScene(facade.gv);
                 window.setScene(scene2);
+                facade.gv.map.requestFocus();
             } catch (Exception e){
                 System.out.print("error");
             }
@@ -128,6 +136,30 @@ public class Controller {
         public void handle(ActionEvent event) {
             modele.nbCoups++;
             modele.notifier();
+        }
+    }
+
+    class PlayerInputs implements EventHandler<KeyEvent> {
+
+        @Override
+        public void handle(KeyEvent event) {
+            switch (event.getCode()){
+                case UP:
+                    System.out.println("Up");
+                    break;
+                case DOWN:
+                    System.out.println("Down");
+                    break;
+                case LEFT:
+                    System.out.println("Left");
+                    break;
+                case RIGHT:
+                    System.out.println("Right");
+                    break;
+            }
+
+
+            event.consume();
         }
     }
 

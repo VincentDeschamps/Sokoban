@@ -16,7 +16,6 @@ public class MonteurGame {
     public static Scene createScene(GameVue vue){
         Pane layout = new HBox();
 
-
         for (int y = 0; y < vue.modele.map.map.size(); y++){
             for (int x = 0; x < vue.modele.map.map.get(y).size(); x++){
 
@@ -43,6 +42,7 @@ public class MonteurGame {
                 vue.back
         );
         layout.getChildren().add(layout2);
+
 /*
 
 
