@@ -6,6 +6,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -14,6 +15,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.Executors;
+
+import static javafx.scene.input.KeyCode.*;
 
 /**
  * Controller
@@ -134,7 +137,20 @@ public class Controller {
 
         @Override
         public void handle(KeyEvent event) {
-            System.out.println("Coucou Tapé !");
+            switch (event.getCode()){
+                case UP:
+                    System.out.println("Up");
+                    break;
+                case DOWN:
+                    System.out.println("Down");
+                    break;
+                case LEFT:
+                    System.out.println("Left");
+                    break;
+                case RIGHT:
+                    System.out.println("Right");
+                    break;
+            }
 
 
             event.consume();
