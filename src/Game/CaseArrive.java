@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class CaseArrive extends Case {
 
-    public static final String img = "";
+    public final String img(){return "EndPoint_Blue.png";}
 
     public CaseArrive(int x, int y){
         super(x,y);

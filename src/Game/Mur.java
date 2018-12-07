@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Mur extends GameObject{
 
-    public static final String img = "";
+    public final String img(){return "Wall_Black.png";}
 
     public Mur(int posX, int posY){
         super(posX,posY);

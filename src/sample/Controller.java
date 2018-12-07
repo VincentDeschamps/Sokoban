@@ -98,9 +98,9 @@ public class Controller {
             window.setTitle("Game");
             try{
                 modele.createMap("src" + File.separator + "tableaux" + File.separator + facade.mv.choixTableau.getValue().toString());
+                MapParser.readMap(modele.map);
                 Scene scene2 = MonteurGame.createScene(facade.gv);
                 window.setScene(scene2);
-                MapParser.readMap(modele.map);
             } catch (Exception e){
                 System.out.print("error");
             }

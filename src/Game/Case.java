@@ -1,7 +1,7 @@
 package Game;
 
 public class Case {
-    public static final String img = "";
+    public String img() {return "GroundGravel_Grass.png";}
 
     public GameObject content = null;
     private int x, y;

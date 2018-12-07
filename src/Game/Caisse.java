@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Caisse extends GameObject{
 
-    public static final String img = "";
+    public final String img() { return "Crate_Beige.png";}
 
     public Caisse(int posX, int posY){
         super(posX,posY);

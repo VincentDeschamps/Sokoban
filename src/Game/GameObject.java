@@ -3,6 +3,8 @@ package Game;
 public abstract class GameObject {
     private int x, y;
 
+    public abstract String img();
+
     protected GameObject(int x, int y){
         this.x = x;
         this.y = y;

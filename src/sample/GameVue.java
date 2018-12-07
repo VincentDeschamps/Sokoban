@@ -1,15 +1,21 @@
 package sample;
 
+import Game.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+
+import java.awt.font.ImageGraphicAttribute;
 
 public class GameVue extends Vue implements Observer {
 
     Modele modele;
 
     ImageView img = new ImageView(new Image("https://lasueur.com/wp-content/uploads/2018/06/Pokemon.jpg"));
+
+    GridPane map;
 
     Label nbCoups;
     Label nom;
@@ -22,6 +28,7 @@ public class GameVue extends Vue implements Observer {
     Button btnRi;
     Button btnLe;
     Button back;
+    BackgroundImage BGForMap;
 
     public GameVue(Modele modele){
         this.modele = modele;
@@ -37,6 +44,13 @@ public class GameVue extends Vue implements Observer {
         btnRi = new Button("->");
         btnLe = new Button("<-");
         back = new Button("back");
+        map = new GridPane();
+        BGForMap = new BackgroundImage(
+                new Image("PNG/GroundGravel_Grass.png",50,50,true,true),
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
     }
 
 
