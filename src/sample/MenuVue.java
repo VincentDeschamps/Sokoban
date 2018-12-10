@@ -12,6 +12,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public class MenuVue extends Vue implements Observer{
     public GridPane menuAnimation;
     //ComboBox to chose an xsb file corresponding to the map
     public ComboBox choixTableau;
+    public Label mapInfo;
     /*
      * A list that describes the images of the animation
      * For exemple : "[[6,1,25],[5,1,50],[6,1,75]]"
@@ -56,6 +58,7 @@ public class MenuVue extends Vue implements Observer{
         title.setFont(Font.font("Webdings", 100));
 
         goToGame = new Button(modele.buttonText);
+        goToGame.setDisable(true);
 
         //setting the background
         BGForMenu = new BackgroundImage(
@@ -96,6 +99,8 @@ public class MenuVue extends Vue implements Observer{
         //combo box containing mapPool (the files in src/tableaux/)
         choixTableau = new ComboBox(modele.mapPool);
         choixTableau.setMinWidth(300);
+        mapInfo = new Label();
+        mapInfo.setFont(Font.font("Webdings", 16));
 
         //grid pane containing the preview of the map
         mapPreview = new GridPane();
@@ -114,10 +119,13 @@ public class MenuVue extends Vue implements Observer{
     @Override
     public void actualiser() {
         Platform.runLater(()-> {
-
             choixTableau.setItems(modele.mapPool);
             previewAppend();
+        });
+    }
 
+    public void actuAnim(){
+        Platform.runLater(()-> {
             if (menuAnimation.getChildren().size() == 17){
                 menuAnimation.getChildren().clear();
                 initGridSize();
@@ -135,14 +143,11 @@ public class MenuVue extends Vue implements Observer{
      */
     public void previewAppend(){
         mapPreview.getChildren().clear();
+        mapInfo.setText("");
         if (modele.mapFile.size()>0){
-            int heightMap = 0;
-            for (int i = 0; i < modele.mapFile.size(); i++) {
-                if (modele.mapFile.get(i)[0] == 'T') {
-                    heightMap = i;
-                }
-            }
-            int sizeBloc = 400/heightMap;
+            int heightMap = modele.mapFile.size();
+            mapInfo.setText("\"" + modele.mapName + "\" (créé par " + modele.authorName + ")");
+            int sizeBloc = 380/heightMap;
             for (int i = 0; i < heightMap; i++){
                 for (int j = 0; j< modele.mapFile.get(i).length; j++){
                     char e = modele.mapFile.get(i)[j];
@@ -151,7 +156,7 @@ public class MenuVue extends Vue implements Observer{
                             break;
                         case '.':   addImageGridpane(mapPreview, "PNG"+ File.separator+"EndPoint_Brown.png", sizeBloc/3, j, i);
                             break;
-                        case '@':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Character4.png", sizeBloc, j, i);
+                        case '@' : case '+':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Character4.png", sizeBloc, j, i);
                             break;
                         case '$':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Crate_Brown.png", (int) (0.9*sizeBloc), j, i);
                             break;
@@ -200,9 +205,8 @@ public class MenuVue extends Vue implements Observer{
 
         public void run() {
             while (running) {
-                System.out.println("ANIM");
                 modele.animationMenu = frameList.get(indiceFrame);
-                modele.notifier();
+                actuAnim();
 
                 // 0 <= indiceFrame < length of frameList
                 this.indiceFrame =  this.indiceFrame+1 < frameList.size() ? this.indiceFrame+1 : 0;

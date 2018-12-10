@@ -7,10 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.Executors;
 
 /**
@@ -66,23 +63,35 @@ public class Controller {
     class LoadMap implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
+            facade.mv.goToGame.setDisable(false);
             modele.mapFile.clear();
             String map = facade.mv.choixTableau.getValue().toString();
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(new File("src"+File.separator+"tableaux"+File.separator+map)))) {
+
+
+            try {
+
+                Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+map)), "ISO-8859-1");
+                BufferedReader reader = new BufferedReader(fin);
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    char[] lineArray = line.toCharArray();
-                    modele.mapFile.add(lineArray);
-                    System.out.println(line);
+                    if (line.contains("Title:")) {
+                        modele.mapName = line.split(":")[1].trim();
+                    }
+                    else if (line.contains("Author:")) {
+                        modele.authorName = line.split(":")[1].trim();
+                    }
+                    else if (!line.contains("T") && !line.contains("C") && !line.contains("A") && !line.contains("D")) {
+                        char[] lineArray = line.toCharArray();
+                        modele.mapFile.add(lineArray);
+                    }
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            System.out.println(map);
+            modele.notifier();
         }
     }
 

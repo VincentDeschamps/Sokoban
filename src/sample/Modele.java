@@ -11,8 +11,8 @@ public class Modele {
 
     public ArrayList<Observer> subscribers;
     public int nbCoups;
-    public String mapName = "Ta mère";
-    public String authorName = "En chemise";
+    public String mapName = "";
+    public String authorName = "";
     public int score = 12;
 
 
