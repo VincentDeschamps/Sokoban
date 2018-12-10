@@ -11,7 +11,7 @@ import java.awt.font.ImageGraphicAttribute;
 
 public class GameVue extends Vue implements Observer {
 
-    Modele modele;
+    ModeleSujet modele;
 
     GridPane map;
 
@@ -28,11 +28,11 @@ public class GameVue extends Vue implements Observer {
     Button back;
     BackgroundImage BGForMap;
 
-    public GameVue(Modele modele){
+    public GameVue(ModeleSujet modele){
         this.modele = modele;
         modele.subscribe(this);
-        nbCoups = new Label(modele.nbCoups+"");
-        nom = new Label("Map " + modele.mapName + " de " + modele.authorName);
+        nbCoups = new Label(modele.getnbCoups()+"");
+        nom = new Label("Map " + modele.getMapName() + " de " + modele.getAuthorName());
         btnRep = new Button("Replay");
         btnRes = new Button("Reset");
         btnUnd = new Button("Undo");
@@ -55,8 +55,8 @@ public class GameVue extends Vue implements Observer {
 
     @Override
     public void actualiser() {
-        nbCoups.setText(modele.nbCoups+"");
-        nom.setText("Map " + modele.mapName + " de " + modele.authorName);
+        nbCoups.setText(modele.getnbCoups()+"");
+        nom.setText("Map " + modele.getMapName() + " de " + modele.getAuthorName());
 
     }
 }

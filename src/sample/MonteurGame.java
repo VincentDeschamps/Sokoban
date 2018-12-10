@@ -16,13 +16,15 @@ public class MonteurGame {
     public static Scene createScene(GameVue vue){
         Pane layout = new HBox();
 
-        for (int y = 0; y < vue.modele.map.map.size(); y++){
-            for (int x = 0; x < vue.modele.map.map.get(y).size(); x++){
+        Map map = vue.modele.getMap();
 
-                if (!vue.modele.map.map.get(y).get(x).isFree()){
-                    vue.map.add(new ImageView(new Image("PNG/" + vue.modele.map.map.get(y).get(x).content.img(),50,50,true, true)), x,y);
-                }else if (vue.modele.map.map.get(y).get(x) instanceof CaseArrive){
-                    vue.map.add(new ImageView(new Image("PNG/" + vue.modele.map.map.get(y).get(x).img(),50,50,true, true)), x,y);
+        for (int y = 0; y < map.map.size(); y++){
+            for (int x = 0; x < map.map.get(y).size(); x++){
+
+                if (!map.map.get(y).get(x).isFree()){
+                    vue.map.add(new ImageView(new Image("PNG/" + map.map.get(y).get(x).content.img(),50,50,true, true)), x,y);
+                }else if (map.map.get(y).get(x) instanceof CaseArrive){
+                    vue.map.add(new ImageView(new Image("PNG/" + map.map.get(y).get(x).img(),50,50,true, true)), x,y);
                 }
             }
         }

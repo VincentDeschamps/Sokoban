@@ -24,7 +24,7 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public class MenuVue extends Vue implements Observer{
 
-    public Modele modele;
+    public ModeleSujet modele;
 
 
     public Button goToGame;
@@ -46,16 +46,16 @@ public class MenuVue extends Vue implements Observer{
     //A runnable that will be called every 500mx (animation of the menu)
     Animate changeGrid;
 
-    public MenuVue(Modele modele){
+    public MenuVue(ModeleSujet modele){
         this.modele = modele;
         this.modele.subscribe(this);
 
         //setting the title / size / font
-        title = new Label(modele.title);
+        title = new Label("SOKOBAN");
         title.setTextFill(Color.web("#1680ad"));
         title.setFont(Font.font("Webdings", 100));
 
-        goToGame = new Button(modele.buttonText);
+        goToGame = new Button("JOUER !");
 
         //setting the background
         BGForMenu = new BackgroundImage(
@@ -70,7 +70,7 @@ public class MenuVue extends Vue implements Observer{
         initGridSize();
 
         //setting the label of the combo box
-        choixLabel = new Label(modele.labelChoix);
+        choixLabel = new Label("Choisir un tableau : ");
         choixLabel.setTextFill(Color.web("#1680ad"));
         choixLabel.setFont(Font.font("Webdings", 20));
 
@@ -200,7 +200,6 @@ public class MenuVue extends Vue implements Observer{
 
         public void run() {
             while (running) {
-                System.out.println("ANIM");
                 modele.animationMenu = frameList.get(indiceFrame);
                 modele.notifier();
 

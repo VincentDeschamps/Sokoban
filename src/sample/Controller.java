@@ -23,10 +23,10 @@ import static javafx.scene.input.KeyCode.*;
  */
 public class Controller {
     Stage window;
-    Modele modele;
+    ModeleSujet modele;
     FacadeVues facade;
 
-    public Controller(Stage win, FacadeVues f, Modele modele){
+    public Controller(Stage win, FacadeVues f, ModeleSujet modele){
         window = win;
         facade = f;
         this.modele = modele;
@@ -105,7 +105,6 @@ public class Controller {
             window.setTitle("Game");
             try{
                 modele.createMap("src" + File.separator + "tableaux" + File.separator + facade.mv.choixTableau.getValue().toString());
-                MapParser.readMap(modele.map);
                 Scene scene2 = MonteurGame.createScene(facade.gv);
                 window.setScene(scene2);
                 facade.gv.map.requestFocus();
@@ -134,7 +133,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            modele.nbCoups++;
+            modele.addCoup();
             modele.notifier();
         }
     }

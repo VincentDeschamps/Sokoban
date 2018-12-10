@@ -21,7 +21,7 @@ public class Main extends Application {
 
         window = primaryStage;
 
-        Modele m = new Modele();
+        ModeleSujet m = new ModeleSujet();
         FacadeVues facade = new FacadeVues(new GameVue(m),new MenuVue(m));
 
         Controller ctrl = new Controller(window, facade, m);
