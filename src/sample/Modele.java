@@ -7,9 +7,8 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Modele {
+public class Modele extends Sujet{
 
-    public ArrayList<Observer> subscribers;
     public int nbCoups;
     public String mapName = "Ta mère";
     public String authorName = "En chemise";
@@ -26,21 +25,12 @@ public class Modele {
     public Map map;
 
     public Modele(){
-        subscribers = new ArrayList<>();
+        super();
         nbCoups = 0;
         mapPool = FXCollections.observableArrayList();
     }
 
-    public void subscribe(Observer ob){
-        subscribers.add(ob);
-    }
 
-    public void notifier(){
-        for (Observer ob : subscribers){
-            ob.actualiser();
-        }
-
-    }
 
     public void createMap(String url) throws Exception{
         try{
