@@ -10,8 +10,8 @@ import java.util.List;
 public class ModeleConcret implements Modele{
 
     public int nbCoups;
-    public String mapName = "Ta mère";
-    public String authorName = "En chemise";
+    public String mapName = "";
+    public String authorName = "";
     public int score = 12;
 
 
@@ -32,6 +32,16 @@ public class ModeleConcret implements Modele{
     @Override
     public Map getMap() {
         return map;
+    }
+
+    @Override
+    public void setMapName(String newName) {
+        this.mapName = newName;
+    }
+
+    @Override
+    public void setAuthorName(String newName) {
+        this.authorName = newName;
     }
 
     @Override

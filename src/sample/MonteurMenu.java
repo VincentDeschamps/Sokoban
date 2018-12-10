@@ -49,13 +49,17 @@ public class MonteurMenu {
         horizontal.getChildren().addAll(mv.choixLabel, mv.choixTableau);
         horizontal.setAlignment(Pos.TOP_CENTER);
 
-        //creating the layout for the map preview
-        GridPane mapPreview = new GridPane();
-        mainLayout.getChildren().add(mapPreview);
-
-        //adding the map preview to the grid pane
-        mapPreview.getChildren().add(mv.mapPreview);
-        mapPreview.setAlignment(Pos.CENTER);
+        //creating the layout for the map preview and its infos
+        VBox map = new VBox();
+        mainLayout.getChildren().add(map);
+        map.setAlignment(Pos.TOP_CENTER);
+        //adding the map preview to the layout
+        map.getChildren().add(mv.mapPreview);
+        mv.mapPreview.setAlignment(Pos.TOP_CENTER);
+        //adding the map info to the layout
+        map.getChildren().add(mv.mapInfo);
+        mv.mapInfo.setAlignment(Pos.BOTTOM_CENTER);
+        mv.mapInfo.setPadding(new Insets(5,0,0,0));
 
         //setting up the play button to the bottom
         mv.goToGame.getStyleClass().add("rich-blue");

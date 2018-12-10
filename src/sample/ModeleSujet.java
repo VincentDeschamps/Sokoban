@@ -53,4 +53,14 @@ public class ModeleSujet extends Sujet implements Modele {
     public Map getMap() {
         return modeleConcret.getMap();
     }
+
+    @Override
+    public void setMapName(String newName) {
+        modeleConcret.setMapName(newName);
+    }
+
+    @Override
+    public void setAuthorName(String newName) {
+        modeleConcret.setAuthorName(newName);
+    }
 }

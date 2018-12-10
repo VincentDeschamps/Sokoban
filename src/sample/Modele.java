@@ -17,4 +17,8 @@ public interface Modele {
 
     Map getMap();
 
+    void setMapName(String newName);
+
+    void setAuthorName(String newName);
+
 }
