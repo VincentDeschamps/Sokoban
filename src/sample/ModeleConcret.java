@@ -45,6 +45,15 @@ public class ModeleConcret implements Modele{
     }
 
     @Override
+    public boolean PlayerMoves(int x, int y) {
+        if (map.isMovable(map.player, x, y)){
+            System.out.println("déplacement ok");
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void createMap(String url) throws Exception{
         try{
             map = MapParser.parseMap(url);

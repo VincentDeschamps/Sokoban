@@ -63,4 +63,16 @@ public class ModeleSujet extends Sujet implements Modele {
     public void setAuthorName(String newName) {
         modeleConcret.setAuthorName(newName);
     }
+
+    @Override
+    public boolean PlayerMoves(int x, int y) {
+        if (modeleConcret.PlayerMoves(x,y)) {
+            notifier();
+            return true;
+        }
+        System.out.println("loose");
+        return false;
+    }
+
+
 }

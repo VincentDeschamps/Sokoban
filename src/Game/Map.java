@@ -29,7 +29,7 @@ public class Map {
      * @return      Un booleen indiquant si le deplacement est valide ou non etg, s'il l'est, l'applique
      */
     public boolean isMovable(GameObject go, int x, int y){
-        if (go.getPosY()+y <= map.size() | go.getPosY()+y < 0){
+        if (go.getPosY()+y >= map.size() | go.getPosY()+y < 0){
             return false;
         }
         if (map.get(go.getPosY()+y).size() <= go.getPosX()+x | go.getPosX()+x < 0){
@@ -38,7 +38,7 @@ public class Map {
 
 
         Case nextCase = map.get(go.getPosY()+y).get(go.getPosX()+x);
-        if(nextCase.isFree() | (!(go instanceof Caisse) & nextCase.content instanceof Caisse & isMovable(nextCase.content, x, y))){
+        if(nextCase.isFree() || (!(go instanceof Caisse) && nextCase.content instanceof Caisse && isMovable(nextCase.content, x, y))){
             map.get(go.getPosY()).get(go.getPosX()).removeContent();
             nextCase.addContent(go);
             go.setX(go.getPosX()+x);

@@ -153,15 +153,19 @@ public class Controller {
             switch (event.getCode()){
                 case UP:
                     System.out.println("Up");
+                    modele.PlayerMoves(0,-1);
                     break;
                 case DOWN:
                     System.out.println("Down");
+                    modele.PlayerMoves(0,1);
                     break;
                 case LEFT:
                     System.out.println("Left");
+                    modele.PlayerMoves(-1,0);
                     break;
                 case RIGHT:
                     System.out.println("Right");
+                    modele.PlayerMoves(1,0);
                     break;
             }
 

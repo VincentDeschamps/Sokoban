@@ -21,4 +21,6 @@ public interface Modele {
 
     void setAuthorName(String newName);
 
+    boolean PlayerMoves(int x, int y);
+
 }
