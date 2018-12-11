@@ -55,7 +55,7 @@ public class MonteurMenu {
         map.setAlignment(Pos.TOP_CENTER);
         //adding the map preview to the layout
         map.getChildren().add(mv.mapPreview);
-        mv.mapPreview.setAlignment(Pos.TOP_CENTER);
+        mv.mapPreview.setAlignment(Pos.CENTER);
         //adding the map info to the layout
         map.getChildren().add(mv.mapInfo);
         mv.mapInfo.setAlignment(Pos.BOTTOM_CENTER);

@@ -117,7 +117,7 @@ public class Controller {
                 window.setScene(scene2);
                 facade.gv.map.requestFocus();
             } catch (Exception e){
-                System.out.print("error");
+                System.out.println(e);
             }
         }
     }
