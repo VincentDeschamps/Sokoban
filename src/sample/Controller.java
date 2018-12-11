@@ -150,6 +150,9 @@ public class Controller {
         }
     }
 
+    /**
+     * Gets the user's inputs
+     */
     class PlayerInputs implements EventHandler<KeyEvent> {
 
         @Override
