@@ -18,6 +18,7 @@ public class MonteurGame {
 
         Map map = vue.modele.getMap();
 
+        vue.map.getChildren().clear();
         for (int y = 0; y < map.map.size(); y++){
             for (int x = 0; x < map.map.get(y).size(); x++){
 
