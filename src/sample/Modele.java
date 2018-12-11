@@ -23,4 +23,5 @@ public interface Modele {
 
     boolean PlayerMoves(int x, int y);
 
+    void setnbCoups(int newNb);
 }

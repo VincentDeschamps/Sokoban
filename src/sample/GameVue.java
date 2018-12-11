@@ -27,6 +27,7 @@ public class GameVue extends Vue implements Observer {
     Button btnLe;
     Button back;
     BackgroundImage BGForMap;
+    boolean isVisible;
 
     public GameVue(ModeleSujet modele){
         this.modele = modele;
@@ -55,8 +56,11 @@ public class GameVue extends Vue implements Observer {
 
     @Override
     public void actualiser() {
-        nbCoups.setText(modele.getnbCoups()+"");
-        nom.setText("Map " + modele.getMapName() + " de " + modele.getAuthorName());
+        if (isVisible){
+            nbCoups.setText(modele.getnbCoups()+"");
+            nom.setText("Map " + modele.getMapName() + " de " + modele.getAuthorName());
+            MonteurGame.createMap(this);
+        }
 
     }
 }

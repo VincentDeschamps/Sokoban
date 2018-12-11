@@ -70,8 +70,12 @@ public class ModeleSujet extends Sujet implements Modele {
             notifier();
             return true;
         }
-        System.out.println("loose");
         return false;
+    }
+
+    @Override
+    public void setnbCoups(int newNb) {
+        modeleConcret.setnbCoups(newNb);
     }
 
 

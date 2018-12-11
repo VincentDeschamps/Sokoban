@@ -12,7 +12,6 @@ public class ModeleConcret implements Modele{
     public int nbCoups;
     public String mapName = "";
     public String authorName = "";
-    public int score = 12;
 
 
 
@@ -47,10 +46,15 @@ public class ModeleConcret implements Modele{
     @Override
     public boolean PlayerMoves(int x, int y) {
         if (map.isMovable(map.player, x, y)){
-            System.out.println("déplacement ok");
+            nbCoups++;
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void setnbCoups(int newNb) {
+        nbCoups = 0;
     }
 
     @Override
@@ -64,7 +68,7 @@ public class ModeleConcret implements Modele{
 
     @Override
     public int getnbCoups() {
-        return score;
+        return nbCoups;
     }
 
     @Override

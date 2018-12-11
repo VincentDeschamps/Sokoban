@@ -115,7 +115,10 @@ public class Controller {
                 modele.createMap("src" + File.separator + "tableaux" + File.separator + facade.mv.choixTableau.getValue().toString());
                 Scene scene2 = MonteurGame.createScene(facade.gv);
                 window.setScene(scene2);
+                facade.gv.isVisible = true;
                 facade.gv.map.requestFocus();
+                facade.gv.actualiser();
+
             } catch (Exception e){
                 System.out.print("error");
             }
@@ -134,6 +137,7 @@ public class Controller {
             window.setTitle("Home");
             Scene scene1 = MonteurMenu.createScene(facade.mv);
             window.setScene(scene1);
+            facade.gv.isVisible = false;
         }
     }
 
@@ -152,19 +156,15 @@ public class Controller {
         public void handle(KeyEvent event) {
             switch (event.getCode()){
                 case UP:
-                    System.out.println("Up");
                     modele.PlayerMoves(0,-1);
                     break;
                 case DOWN:
-                    System.out.println("Down");
                     modele.PlayerMoves(0,1);
                     break;
                 case LEFT:
-                    System.out.println("Left");
                     modele.PlayerMoves(-1,0);
                     break;
                 case RIGHT:
-                    System.out.println("Right");
                     modele.PlayerMoves(1,0);
                     break;
             }
