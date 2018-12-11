@@ -1,6 +1,7 @@
 package sample;
 
 import Game.*;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,9 +16,18 @@ public class MonteurGame {
 
         createMap(vue);
 
-
         vue.map.setBackground(new Background(vue.BGForMap));
         layout.getChildren().add(vue.map);
+
+        HBox buttonUR = new HBox(vue.btnUnd, vue.btnRed);
+        buttonUR.setAlignment(Pos.TOP_CENTER);
+
+        GridPane buttonArrows = new GridPane();
+        buttonArrows.add(vue.btnLe, 0, 1);
+        buttonArrows.add(vue.btnDo, 1, 1);
+        buttonArrows.add(vue.btnRi, 2, 1);
+        buttonArrows.add(vue.btnUp, 1, 0);
+        buttonArrows.setAlignment(Pos.TOP_CENTER);
 
         VBox layout2 = new VBox();
         layout2.getChildren().addAll(
@@ -25,11 +35,12 @@ public class MonteurGame {
                 vue.nom,
                 vue.btnRep,
                 vue.btnRes,
-                new HBox(vue.btnUnd, vue.btnRed),
-                vue.btnUp,
-                new HBox(vue.btnLe, vue.btnDo, vue.btnRi),
+                buttonUR,
+                buttonArrows,
                 vue.back
         );
+        layout2.setMinWidth(300);
+        layout2.setAlignment(Pos.TOP_CENTER);
         layout.getChildren().add(layout2);
 
 /*
@@ -53,13 +64,28 @@ public class MonteurGame {
         Map map = vue.modele.getMap();
 
         vue.map.getChildren().clear();
+        int height = map.map.size();
+        int width = 0;
+        for (int y = 0; y < map.map.size(); y++) {
+            if (width == 0 || map.map.get(y).size()>width){
+                width = map.map.get(y).size();
+            }
+        }
+
         for (int y = 0; y < map.map.size(); y++){
             for (int x = 0; x < map.map.get(y).size(); x++){
 
+                int heightBlock = 700/height;
+                int widthBlock = 1200/width;
+                int sizeBlock = Math.min(heightBlock, widthBlock) > 100 ? 100 : Math.min(heightBlock, widthBlock);
+
                 if (!map.map.get(y).get(x).isFree()){
-                    vue.map.add(new ImageView(new Image("PNG/" + map.map.get(y).get(x).content.img(),50,50,true, true)), x,y);
+                    if (map.map.get(y).get(x).content instanceof Caisse){
+                        sizeBlock *= 0.9;
+                    }
+                    MenuVue.addImageGridpane(vue.map, "PNG/" + map.map.get(y).get(x).content.img(), sizeBlock, x, y);
                 }else if (map.map.get(y).get(x) instanceof CaseArrive){
-                    vue.map.add(new ImageView(new Image("PNG/" + map.map.get(y).get(x).img(),50,50,true, true)), x,y);
+                    MenuVue.addImageGridpane(vue.map, "PNG/" + map.map.get(y).get(x).img(), sizeBlock/3, x, y);
                 }
             }
         }

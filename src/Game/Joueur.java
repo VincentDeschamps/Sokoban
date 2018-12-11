@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Joueur extends GameObject{
 
-    public final String img() {return "Character1.png";}
+    public final String img() {return "Character4.png";}
 
 
     public Joueur(int posX, int posY){

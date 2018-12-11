@@ -146,22 +146,34 @@ public class MenuVue extends Vue implements Observer{
         mapPreview.getChildren().clear();
         mapInfo.setText("");
         if (modele.mapFile.size()>0){
-            int heightMap = modele.mapFile.size();
+            int height = modele.mapFile.size();
+            int width = 0;
+
+            for (int i = 0; i < height; i++) {
+                if (width == 0 || modele.mapFile.get(i).length > width){
+                    width = modele.mapFile.get(i).length;
+                }
+            }
+
             mapInfo.setText("\"" + modele.getMapName() + "\" (créé par " + modele.getAuthorName() + ")");
-            int sizeBloc = 380/heightMap;
-            for (int i = 0; i < heightMap; i++){
+
+            int heightBlock = 380/height;
+            int widthBlock = 1200/width;
+            int sizeBlock = Math.min(heightBlock, widthBlock) > 70 ? 70 : Math.min(heightBlock, widthBlock);
+
+            for (int i = 0; i < height; i++){
                 for (int j = 0; j< modele.mapFile.get(i).length; j++){
                     char e = modele.mapFile.get(i)[j];
                     switch(e){
-                        case '#':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Wall_Black.png", sizeBloc, j, i);
+                        case '#':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Wall_Black.png", sizeBlock, j, i);
                             break;
-                        case '.':   addImageGridpane(mapPreview, "PNG"+ File.separator+"EndPoint_Brown.png", sizeBloc/3, j, i);
+                        case '.':   addImageGridpane(mapPreview, "PNG"+ File.separator+"EndPoint_Blue.png", sizeBlock/3, j, i);
                             break;
-                        case '@' : case '+':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Character4.png", sizeBloc, j, i);
+                        case '@' : case '+':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Character4.png", sizeBlock, j, i);
                             break;
-                        case '$':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Crate_Brown.png", (int) (0.9*sizeBloc), j, i);
+                        case '$':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Crate_Brown.png", (int) (0.9*sizeBlock), j, i);
                             break;
-                        case ' ':   addImageGridpane(mapPreview, "PNG"+ File.separator+"GroundGravel_Grass.png", sizeBloc, j, i);
+                        case ' ':   addImageGridpane(mapPreview, "PNG"+ File.separator+"GroundGravel_Grass.png", sizeBlock, j, i);
                             break;
                     }
                 }
@@ -177,7 +189,7 @@ public class MenuVue extends Vue implements Observer{
      * @params col int : column index
      * @params row int : row index
      */
-    public void addImageGridpane(GridPane layout, String image, int size, int col, int row){
+    public static void addImageGridpane(GridPane layout, String image, int size, int col, int row){
         ImageView img = new ImageView(new Image(image, size, size, true, true));
         layout.add(img, col, row);
         layout.setHalignment(img, HPos.CENTER);

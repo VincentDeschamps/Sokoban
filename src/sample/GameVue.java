@@ -1,11 +1,13 @@
 package sample;
 
 import Game.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 
 import java.awt.font.ImageGraphicAttribute;
 
@@ -33,6 +35,7 @@ public class GameVue extends Vue implements Observer {
         this.modele = modele;
         modele.subscribe(this);
         nbCoups = new Label(modele.getnbCoups()+"");
+        nbCoups.setFont(Font.font("Webdings", 60));
         nom = new Label("Map " + modele.getMapName() + " de " + modele.getAuthorName());
         btnRep = new Button("Replay");
         btnRes = new Button("Reset");
@@ -44,6 +47,8 @@ public class GameVue extends Vue implements Observer {
         btnLe = new Button("<-");
         back = new Button("back");
         map = new GridPane();
+        map.setAlignment(Pos.CENTER);
+        map.setMinWidth(1200);
         BGForMap = new BackgroundImage(
                 new Image("PNG/GroundGravel_Grass.png",50,50,true,true),
                 BackgroundRepeat.REPEAT,

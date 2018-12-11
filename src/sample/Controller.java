@@ -43,6 +43,7 @@ public class Controller {
         f.mv.choixTableau.setOnAction(new LoadMap());
 
         f.gv.map.setOnKeyPressed(new PlayerInputs());
+
     }
 
     /**
@@ -120,7 +121,7 @@ public class Controller {
                 facade.gv.actualiser();
 
             } catch (Exception e){
-                System.out.print("error");
+                System.out.println(e);
             }
         }
     }
