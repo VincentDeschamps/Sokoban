@@ -12,7 +12,9 @@ public class ModeleConcret implements Modele{
     private int nbCoups = 0;
     private String mapName = "";
     private String authorName = "";
-    private Map map;
+    private ArrayList<Map> maps = new ArrayList<>();
+    private int indexCurMap = 0;
+
 
     public ModeleConcret(){
         super();
@@ -25,9 +27,18 @@ public class ModeleConcret implements Modele{
     }
 
     @Override
-    public Map getMap() {
-        return map;
+    public ArrayList<Map> getMaps() {
+        return maps;
     }
+
+    @Override
+    public int getIndexCurMap() { return indexCurMap; }
+
+    @Override
+    public void setIndexCurMap(int i) { indexCurMap+=i; }
+
+    @Override
+    public Map getMap() { return maps.get(indexCurMap); }
 
     @Override
     public void setMapName(String newName) {
@@ -41,7 +52,7 @@ public class ModeleConcret implements Modele{
 
     @Override
     public boolean PlayerMoves(int x, int y) {
-        if (map.isMovable(map.player, x, y)){
+        if (maps.get(indexCurMap).isMovable(maps.get(indexCurMap).player, x, y)){
             nbCoups++;
             return true;
         }
@@ -50,8 +61,10 @@ public class ModeleConcret implements Modele{
 
     @Override
     public void createMap(String url) throws Exception{
+        maps.clear();
+        indexCurMap = 0;
         try{
-            map = MapParser.parseMap(url);
+            maps.add(MapParser.parseMap(url));
         } catch (Exception e){
             throw e;
         }
@@ -73,8 +86,8 @@ public class ModeleConcret implements Modele{
     }
 
     @Override
-    public void addCoup() {
-        nbCoups++;
+    public void changeCoups(int i) {
+        nbCoups += i;
     }
 
 }

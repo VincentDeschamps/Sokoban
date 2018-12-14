@@ -2,19 +2,14 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Comparator;
-import java.util.concurrent.Executors;
-
-import static javafx.scene.input.KeyCode.*;
 
 /**
  * Controller
@@ -33,6 +28,8 @@ public class Controller {
         f.gv.back.setOnAction(new GoToMenu());
         f.gv.nextMap.setOnAction(new GoToNextMap());
         f.gv.previousMap.setOnAction(new GoToPreviousMap());
+        f.gv.btnUnd.setOnAction(new Undo());
+        f.gv.btnRed.setOnAction(new Redo());
 
         window.setTitle("Home");
         Scene scene1 = MonteurMenu.createScene(facade.mv);
@@ -166,6 +163,42 @@ public class Controller {
     }
 
     /**
+     * Called when the user clicks on the "undo" button on the game scene
+     * Cancel the last move of the player
+     */
+    class Undo implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (facade.gv.modele.getIndexCurMap()-1>=0) {
+                facade.gv.modele.setIndexCurMap(-1);
+                facade.gv.modele.changeCoups(-1);
+                facade.gv.actualiser();
+                System.out.println("#########undo##########");
+                System.out.println(facade.gv.modele.getMaps().size());
+                System.out.println(facade.gv.modele.getIndexCurMap());
+                System.out.println("#######################");
+            }
+        }
+    }
+
+    class Redo implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (facade.gv.modele.getIndexCurMap()+1 < facade.gv.modele.getMaps().size()) {
+                facade.gv.modele.setIndexCurMap(1);
+                facade.gv.modele.changeCoups(1);
+                facade.gv.actualiser();
+                System.out.println("#########redo##########");
+                System.out.println(facade.gv.modele.getMaps().size());
+                System.out.println(facade.gv.modele.getIndexCurMap());
+                System.out.println("#######################");
+            }
+        }
+    }
+
+    /**
      * Gets the user's inputs and modifies the model if necessary
      */
     class PlayerInputs implements EventHandler<KeyEvent> {
@@ -173,6 +206,12 @@ public class Controller {
         @Override
         public void handle(KeyEvent event) {
             switch (event.getCode()){
+                case Y:
+                    new Redo().handle(new ActionEvent());
+                    break;
+                case Z:
+                    new Undo().handle(new ActionEvent());
+                    break;
                 case UP:
                     modele.PlayerMoves(0,-1);
                     break;

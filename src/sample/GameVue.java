@@ -106,8 +106,16 @@ public class GameVue implements Observer {
                 if (!map.map.get(y).get(x).isFree()){
                     if (map.map.get(y).get(x).content instanceof Caisse){
                         sizeBlock *= 0.9;
+                        if (map.map.get(y).get(x) instanceof CaseArrive) {
+                            MenuVue.addImageGridpane(this.map, "PNG/Crate_Beige.png", sizeBlock, x, y);
+                        }
+                        else {
+                            MenuVue.addImageGridpane(this.map, "PNG/" + map.map.get(y).get(x).content.img(), sizeBlock, x, y);
+                        }
                     }
-                    MenuVue.addImageGridpane(this.map, "PNG/" + map.map.get(y).get(x).content.img(), sizeBlock, x, y);
+                    else {
+                        MenuVue.addImageGridpane(this.map, "PNG/" + map.map.get(y).get(x).content.img(), sizeBlock, x, y);
+                    }
                 }else if (map.map.get(y).get(x) instanceof CaseArrive){
                     MenuVue.addImageGridpane(this.map, "PNG/" + map.map.get(y).get(x).img(), sizeBlock/3, x, y);
                 }

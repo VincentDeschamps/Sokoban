@@ -2,6 +2,8 @@ package sample;
 
 import Game.Map;
 
+import java.util.ArrayList;
+
 public interface Modele {
 
 
@@ -32,7 +34,7 @@ public interface Modele {
     /**
      * Increases the number of moves made by the player
      */
-    void addCoup();
+    void changeCoups(int i);
 
     /**
      * Begins the party and initialize the nomber of moves
@@ -41,7 +43,25 @@ public interface Modele {
 
     /**
      *
-     * @return "Map" the instance of current played map
+     * @return "Maps" the ArrayList of all the states of the map since the start of the game
+     */
+    ArrayList<Map> getMaps();
+
+    /**
+     *
+     * @return "indexCurMap" the index of the map that is displayed in the list
+     */
+    int getIndexCurMap();
+
+    /**
+     *
+     * @param i the number to add to indexCurMap
+     */
+    void setIndexCurMap(int i);
+
+    /**
+     *
+     * @return the currently diplayed map in the map list
      */
     Map getMap();
 
