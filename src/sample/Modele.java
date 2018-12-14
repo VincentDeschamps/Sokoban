@@ -64,4 +64,6 @@ public interface Modele {
      * @return "boolean" true if the movement has been accepted or false if it has not
      */
     boolean PlayerMoves(int x, int y);
+
+    boolean checkVictory();
 }

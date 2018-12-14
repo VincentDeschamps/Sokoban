@@ -49,6 +49,11 @@ public class ModeleConcret implements Modele{
     }
 
     @Override
+    public boolean checkVictory() {
+        return map.checkVictory();
+    }
+
+    @Override
     public void createMap(String url) throws Exception{
         try{
             map = MapParser.parseMap(url);

@@ -6,6 +6,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -187,7 +188,14 @@ public class Controller {
                     break;
             }
 
+            if (modele.checkVictory()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Wonderful!");
+                alert.setHeaderText(null);
+                alert.setContentText("You won this map!");
 
+                alert.showAndWait();
+            }
             event.consume();
         }
     }

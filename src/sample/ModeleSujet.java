@@ -77,4 +77,9 @@ public class ModeleSujet extends Sujet implements Modele {
         return false;
     }
 
+    @Override
+    public boolean checkVictory() {
+        return modeleConcret.checkVictory();
+    }
+
 }

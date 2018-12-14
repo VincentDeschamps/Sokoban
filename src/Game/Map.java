@@ -5,12 +5,20 @@ import java.util.ArrayList;
 public class Map {
 
     public ArrayList<ArrayList<Case>> map;
+    public ArrayList<CaseArrive> goals = new ArrayList<>();
 
     public Joueur player;
 
     public Map(ArrayList<ArrayList<Case>> map, Joueur j){
         this.map = map;
         this.player = j;
+        for (ArrayList<Case> line: this.map) {
+            for (Case c: line){
+                if (c instanceof CaseArrive){
+                goals.add((CaseArrive)c);
+                }
+            }
+        }
     }
 
     /**
@@ -38,5 +46,12 @@ public class Map {
             return true;
         }
         return false;
+    }
+
+    public boolean checkVictory(){
+        for (CaseArrive c: goals) {
+            if (c.isFree() || !(c.content instanceof Caisse)) return false;
+        }
+        return true;
     }
 }
