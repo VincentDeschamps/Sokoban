@@ -5,8 +5,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Map Builder
+ */
 public class MapParser {
 
+    /**
+     * Builds a map from the file concerned by the link
+     * @param link String the url of the concerned file
+     * @return "Map" instance of the map genrated by the concerned file
+     * @throws FileNotFoundException if the file does not exist.
+     */
     public static Map parseMap(String link) throws FileNotFoundException{
         System.out.println("Function called");
 
@@ -63,6 +72,10 @@ public class MapParser {
         return new Map(res, j);
     }
 
+    /**
+     * Prints on the console the map
+     * @param map Map to print
+     */
     public static void readMap(Map map){
         String res = "";
         for(ArrayList<Case> line : map.map){

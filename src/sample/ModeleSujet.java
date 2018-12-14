@@ -6,7 +6,10 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Class observed by views
+ * Presents all datas wich views needs
+ */
 public class ModeleSujet extends Sujet implements Modele {
     ModeleConcret modeleConcret;
     public ObservableList<String> mapPool;
@@ -73,11 +76,5 @@ public class ModeleSujet extends Sujet implements Modele {
         }
         return false;
     }
-
-    @Override
-    public void setnbCoups(int newNb) {
-        modeleConcret.setnbCoups(newNb);
-    }
-
 
 }

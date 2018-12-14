@@ -20,9 +20,9 @@ import static javafx.scene.input.KeyCode.*;
  * Controller
  */
 public class Controller {
-    Stage window;
-    ModeleSujet modele;
-    FacadeVues facade;
+    private Stage window;
+    private ModeleSujet modele;
+    private FacadeVues facade;
 
     public Controller(Stage win, FacadeVues f, ModeleSujet modele){
         window = win;
@@ -31,7 +31,6 @@ public class Controller {
 
         f.mv.goToGame.setOnAction(new GoToGame());
         f.gv.back.setOnAction(new GoToMenu());
-        f.gv.btnRi.setOnAction(new MoveRight());
         f.gv.nextMap.setOnAction(new GoToNextMap());
         f.gv.previousMap.setOnAction(new GoToPreviousMap());
 
@@ -93,10 +92,14 @@ public class Controller {
         }
     }
 
-    public void mapLoader(String map){
+    /**
+     * Loads the map concerned by the url and modifies the model with datas obtained in the concerned file
+     * @param url String url of the file
+     */
+    public void mapLoader(String url){
         modele.mapFile.clear();
         try {
-            Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+map)), "ISO-8859-1");
+            Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+url)), "ISO-8859-1");
             BufferedReader reader = new BufferedReader(fin);
 
             String line;
@@ -117,7 +120,7 @@ public class Controller {
             e.printStackTrace();
         }
 
-        System.out.println(map);
+        System.out.println(url);
         modele.notifier();
     }
 
@@ -162,17 +165,8 @@ public class Controller {
         }
     }
 
-    class MoveRight implements EventHandler<ActionEvent>{
-
-        @Override
-        public void handle(ActionEvent event) {
-            modele.addCoup();
-            modele.notifier();
-        }
-    }
-
     /**
-     * Gets the user's inputs
+     * Gets the user's inputs and modifies the model if necessary
      */
     class PlayerInputs implements EventHandler<KeyEvent> {
 
@@ -198,12 +192,16 @@ public class Controller {
         }
     }
 
+    /**
+     * Sets the selected map with the next map on the modele.mapPool list
+     */
     class GoToNextMap implements EventHandler<ActionEvent>{
 
         @Override
         public void handle(ActionEvent event) {
             if (modele.curSelectedMap != modele.mapPool.size() -1){
                 modele.curSelectedMap ++;
+                modele.notifier();
                 String mapName = modele.mapPool.get(modele.curSelectedMap);
                 mapLoader(mapName);
 
@@ -213,12 +211,16 @@ public class Controller {
         }
     }
 
+    /**
+     * Sets the selected map with the previous map on the modele.mapPool list
+     */
     class GoToPreviousMap implements EventHandler<ActionEvent>{
 
         @Override
         public void handle(ActionEvent event) {
             if (modele.curSelectedMap != 0){
                 modele.curSelectedMap --;
+                modele.notifier();
                 String mapName = modele.mapPool.get(modele.curSelectedMap);
                 mapLoader(mapName);
 

@@ -9,17 +9,13 @@ import java.util.List;
 
 public class ModeleConcret implements Modele{
 
-    public int nbCoups;
-    public String mapName = "";
-    public String authorName = "";
-
-
-
-    public Map map;
+    private int nbCoups = 0;
+    private String mapName = "";
+    private String authorName = "";
+    private Map map;
 
     public ModeleConcret(){
         super();
-        nbCoups = 0;
     }
 
     @Override
@@ -50,11 +46,6 @@ public class ModeleConcret implements Modele{
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void setnbCoups(int newNb) {
-        nbCoups = 0;
     }
 
     @Override

@@ -2,7 +2,6 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -16,13 +15,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 /**
- * View for the application menu
+ * View for the application menu. Where the user can choose which game he wants to play
  */
-public class MenuVue extends Vue implements Observer{
+public class MenuVue implements Observer{
 
     public ModeleSujet modele;
 
@@ -111,10 +108,6 @@ public class MenuVue extends Vue implements Observer{
         animate.start();
     }
 
-    /**
-     * Controller modify Modele then Modele call 'actualiser'
-     * Get the new information in the modele and change the display
-     */
     @Override
     public void actualiser() {
         Platform.runLater(() -> {
@@ -122,9 +115,13 @@ public class MenuVue extends Vue implements Observer{
             choixTableau.setItems(modele.mapPool);
             previewAppend();
         });
+        choixTableau.setValue(modele.mapPool.get(modele.curSelectedMap));
     }
 
 
+    /**
+     * Actualize the character animation
+     */
     public void actuAnim(){
         Platform.runLater(()-> {
             if (menuAnimation.getChildren().size() == 17){
@@ -231,10 +228,16 @@ public class MenuVue extends Vue implements Observer{
             }
         }
 
+        /**
+         * Stops the character animation
+         */
         public void pause(){
             running = false;
         }
 
+        /**
+         * starts the animation
+         */
         public void release(){
             running = true;
             Thread animate = new Thread(this);

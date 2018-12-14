@@ -7,6 +7,9 @@ import javafx.scene.layout.*;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Menu's Builder
+ */
 public class MonteurMenu {
 
     MenuVue menuVue;
