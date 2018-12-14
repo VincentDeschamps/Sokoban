@@ -73,7 +73,6 @@ public class GameVue implements Observer {
             } else {
                 previousMap.setDisable(false);
                 nextMap.setDisable(false);
-                System.out.println("ici");
 
             }
         }
