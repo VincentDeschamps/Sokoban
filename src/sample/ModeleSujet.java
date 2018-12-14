@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 /**
  * Class observed by views
@@ -16,7 +17,6 @@ public class ModeleSujet extends Sujet implements Modele {
     public List<Integer> animationMenu;
     public ArrayList<char[]> mapFile = new ArrayList<>();
     public int curSelectedMap;
-
 
     public ModeleSujet(){
         this.modeleConcret = new ModeleConcret();
@@ -44,8 +44,8 @@ public class ModeleSujet extends Sujet implements Modele {
     }
 
     @Override
-    public void addCoup() {
-        modeleConcret.addCoup();
+    public void changeCoups(int i) {
+        modeleConcret.changeCoups(i);
     }
 
     @Override
@@ -54,9 +54,17 @@ public class ModeleSujet extends Sujet implements Modele {
     }
 
     @Override
-    public Map getMap() {
-        return modeleConcret.getMap();
+    public ArrayList<Map> getMaps() {
+        return modeleConcret.getMaps();
     }
+
+    @Override
+    public int getIndexCurMap() { return modeleConcret.getIndexCurMap(); }
+
+    public void setIndexCurMap(int i) { modeleConcret.setIndexCurMap(i); }
+
+    @Override
+    public Map getMap(){ return getMaps().get(getIndexCurMap()); }
 
     @Override
     public void setMapName(String newName) {
@@ -70,7 +78,19 @@ public class ModeleSujet extends Sujet implements Modele {
 
     @Override
     public boolean PlayerMoves(int x, int y) {
+        Map map = getMap();
+        Map prec = new Map(map);
+
         if (modeleConcret.PlayerMoves(x,y)) {
+            while(getMaps().size()>getIndexCurMap()+1) {
+                getMaps().remove(getMaps().size()-1);
+            }
+            getMaps().add(prec);
+            if (getMaps().size()>1) {
+                Collections.swap(getMaps(), getMaps().size() - 1, getMaps().size() - 2);
+            }
+            setIndexCurMap(1);
+
             notifier();
             return true;
         }

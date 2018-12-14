@@ -21,6 +21,49 @@ public class Map {
         }
     }
 
+    public Map(Map map){
+        this.map = new ArrayList();
+        for (int i = 0; i<map.map.size(); i++){
+            ArrayList<Case> ligne = new ArrayList<>();
+            for (int j = 0; j<map.map.get(i).size(); j++){
+                if (map.map.get(i).get(j) instanceof CaseArrive){
+                    if (map.map.get(i).get(j).content instanceof Caisse){
+                        ligne.add(new CaseArrive(map.map.get(i).get(j).getX(), map.map.get(i).get(j).getY(), new Caisse((Caisse) map.map.get(i).get(j).content)));
+                    }
+                    else{
+                        ligne.add(new CaseArrive(map.map.get(i).get(j).getX(), map.map.get(i).get(j).getY(), map.map.get(i).get(j).content));
+                    }
+                }
+                else {
+                    if (map.map.get(i).get(j).content instanceof Caisse){
+                        ligne.add(new Case(map.map.get(i).get(j).getX(), map.map.get(i).get(j).getY(), new Caisse((Caisse) map.map.get(i).get(j).content)));
+                    }
+                    else {
+                        ligne.add(new Case(map.map.get(i).get(j).getX(), map.map.get(i).get(j).getY(), map.map.get(i).get(j).content));
+                    }
+                }
+            }
+            this.map.add(ligne);
+        }
+        this.player = new Joueur(map.player.getPosX(), map.player.getPosY());
+    }
+
+    public ArrayList<ArrayList<Case>> getMap(){
+        return this.map;
+    }
+
+    public void setMap(ArrayList<ArrayList<Case>> map){
+        this.map = map;
+    }
+
+    public Joueur getPlayer(){
+        return this.player;
+    }
+
+    public void setPlayer(Joueur j){
+        this.player = j;
+    }
+
     /**
      *
      * @param  go  GameObject que l'on veut deplacer

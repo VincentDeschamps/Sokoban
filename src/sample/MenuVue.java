@@ -1,5 +1,6 @@
 package sample;
 
+import Game.GameChars;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
@@ -162,15 +163,17 @@ public class MenuVue implements Observer{
                 for (int j = 0; j< modele.mapFile.get(i).length; j++){
                     char e = modele.mapFile.get(i)[j];
                     switch(e){
-                        case '#':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Wall_Black.png", sizeBlock, j, i);
+                        case GameChars.WALL:   addImageGridpane(mapPreview, "PNG"+ File.separator+"Wall_Black.png", sizeBlock, j, i);
                             break;
-                        case '.':   addImageGridpane(mapPreview, "PNG"+ File.separator+"EndPoint_Blue.png", sizeBlock/3, j, i);
+                        case GameChars.EMPTYARRIVED:   addImageGridpane(mapPreview, "PNG"+ File.separator+"EndPoint_Blue.png", sizeBlock/3, j, i);
                             break;
-                        case '@' : case '+':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Character4.png", sizeBlock, j, i);
+                        case GameChars.PLAYERCASE: case GameChars.PLAYERARRIVEDCASE:   addImageGridpane(mapPreview, "PNG"+ File.separator+"Character4.png", sizeBlock, j, i);
                             break;
-                        case '$':   addImageGridpane(mapPreview, "PNG"+ File.separator+"Crate_Brown.png", (int) (0.9*sizeBlock), j, i);
+                        case GameChars.CAISSECASE:   addImageGridpane(mapPreview, "PNG"+ File.separator+"Crate_Brown.png", (int) (0.9*sizeBlock), j, i);
                             break;
-                        case ' ':   addImageGridpane(mapPreview, "PNG"+ File.separator+"GroundGravel_Grass.png", sizeBlock, j, i);
+                        case GameChars.CAISSEARRIVED:   addImageGridpane(mapPreview, "PNG"+ File.separator+"Crate_Beige.png", (int) (0.9*sizeBlock), j, i);
+                            break;
+                        case GameChars.EMPTYCASE:   addImageGridpane(mapPreview, "PNG"+ File.separator+"GroundGravel_Grass.png", sizeBlock, j, i);
                             break;
                     }
                 }

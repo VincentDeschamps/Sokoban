@@ -1,6 +1,5 @@
 package Game;
 
-import javafx.scene.image.Image;
 
 public class Caisse extends GameObject{
 
@@ -8,5 +7,9 @@ public class Caisse extends GameObject{
 
     public Caisse(int posX, int posY){
         super(posX,posY);
+    }
+
+    public Caisse(Caisse c){
+        super(c.getPosX(), c.getPosY());
     }
 }
