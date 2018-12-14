@@ -61,7 +61,7 @@ public class ModeleConcret implements Modele{
 
     @Override
     public boolean checkVictory() {
-        return map.checkVictory();
+        return getMap().checkVictory();
     }
 
     @Override

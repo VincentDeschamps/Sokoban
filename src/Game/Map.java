@@ -33,6 +33,7 @@ public class Map {
                     else{
                         ligne.add(new CaseArrive(map.map.get(i).get(j).getX(), map.map.get(i).get(j).getY(), map.map.get(i).get(j).content));
                     }
+                    goals.add((CaseArrive)ligne.get(j));
                 }
                 else {
                     if (map.map.get(i).get(j).content instanceof Caisse){
