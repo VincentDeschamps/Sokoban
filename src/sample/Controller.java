@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.concurrent.Executors;
 
 import static javafx.scene.input.KeyCode.*;
@@ -31,6 +32,8 @@ public class Controller {
         f.mv.goToGame.setOnAction(new GoToGame());
         f.gv.back.setOnAction(new GoToMenu());
         f.gv.btnRi.setOnAction(new MoveRight());
+        f.gv.nextMap.setOnAction(new GoToNextMap());
+        f.gv.previousMap.setOnAction(new GoToPreviousMap());
 
         window.setTitle("Home");
         Scene scene1 = MonteurMenu.createScene(facade.mv);
@@ -60,6 +63,13 @@ public class Controller {
         for (File file : fList) {
             maps.add(file.getName());
         }
+        maps.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+
         return maps;
     }
 
@@ -72,39 +82,43 @@ public class Controller {
         @Override
         public void handle(ActionEvent event) {
             facade.mv.goToGame.setDisable(false);
-            modele.mapFile.clear();
+
             String map = facade.mv.choixTableau.getValue().toString();
-            for (int i = 0; i < facade.mv.modele.mapPool.size(); i++){
-                if (facade.mv.modele.mapPool.get(i) == facade.mv.choixTableau.getValue()){
+            for (int i = 0; i < facade.mv.modele.mapPool.size(); i++) {
+                if (facade.mv.modele.mapPool.get(i) == facade.mv.choixTableau.getValue()) {
                     facade.mv.modele.curSelectedMap = i;
                 }
             }
+            mapLoader(map);
+        }
+    }
 
-            try {
-                Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+map)), "ISO-8859-1");
-                BufferedReader reader = new BufferedReader(fin);
+    public void mapLoader(String map){
+        modele.mapFile.clear();
+        try {
+            Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+map)), "ISO-8859-1");
+            BufferedReader reader = new BufferedReader(fin);
 
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    if (line.contains("Title:")) {
-                        modele.setMapName(line.split(":")[1].trim());
-                    }
-                    else if (line.contains("Author:")) {
-                        modele.setAuthorName(line.split(":")[1].trim());
-                    }
-                    else if (!line.contains("T") && !line.contains("C") && !line.contains("A") && !line.contains("D")) {
-                        char[] lineArray = line.toCharArray();
-                        modele.mapFile.add(lineArray);
-                    }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Title:")) {
+                    modele.setMapName(line.split(":")[1].trim());
                 }
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                else if (line.contains("Author:")) {
+                    modele.setAuthorName(line.split(":")[1].trim());
+                }
+                else if (!line.contains("T") && !line.contains("C") && !line.contains("A") && !line.contains("D")) {
+                    char[] lineArray = line.toCharArray();
+                    modele.mapFile.add(lineArray);
+                }
             }
 
-            System.out.println(map);
-            modele.notifier();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        System.out.println(map);
+        modele.notifier();
     }
 
     /**
@@ -118,11 +132,12 @@ public class Controller {
             facade.mv.changeGrid.pause();
             window.setTitle("Game");
             try{
-                modele.createMap("src" + File.separator + "tableaux" + File.separator + facade.mv.choixTableau.getValue().toString());
+                modele.createMap("src" + File.separator + "tableaux" + File.separator + modele.mapPool.get(modele.curSelectedMap));
                 Scene scene2 = MonteurGame.createScene(facade.gv);
                 window.setScene(scene2);
                 facade.gv.isVisible = true;
                 facade.gv.map.requestFocus();
+                modele.startParty();
                 facade.gv.actualiser();
 
             } catch (Exception e){
@@ -180,6 +195,36 @@ public class Controller {
 
 
             event.consume();
+        }
+    }
+
+    class GoToNextMap implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (modele.curSelectedMap != modele.mapPool.size() -1){
+                modele.curSelectedMap ++;
+                String mapName = modele.mapPool.get(modele.curSelectedMap);
+                mapLoader(mapName);
+
+                EventHandler<ActionEvent> gotogame = new GoToGame();
+                gotogame.handle(event);
+            }
+        }
+    }
+
+    class GoToPreviousMap implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            if (modele.curSelectedMap != 0){
+                modele.curSelectedMap --;
+                String mapName = modele.mapPool.get(modele.curSelectedMap);
+                mapLoader(mapName);
+
+                EventHandler<ActionEvent> gotogame = new GoToGame();
+                gotogame.handle(event);
+            }
         }
     }
 
