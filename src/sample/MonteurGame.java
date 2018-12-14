@@ -28,6 +28,18 @@ public class MonteurGame {
         buttonArrows.add(vue.btnRi, 2, 1);
         buttonArrows.add(vue.btnUp, 1, 0);
         buttonArrows.setAlignment(Pos.TOP_CENTER);
+        if (vue.modele.curSelectedMap == 0) {
+            vue.previousMap.setDisable(true);
+            vue.nextMap.setDisable(false);
+        }
+        else if (vue.modele.curSelectedMap == vue.modele.mapPool.size() - 1){
+            vue.nextMap.setDisable(true);
+            vue.previousMap.setDisable(false);
+        } else {
+            vue.previousMap.setDisable(false);
+            vue.nextMap.setDisable(false);
+
+        }
 
         VBox layout2 = new VBox();
         layout2.getChildren().addAll(
@@ -37,7 +49,8 @@ public class MonteurGame {
                 vue.btnRes,
                 buttonUR,
                 buttonArrows,
-                vue.back
+                vue.back,
+                new HBox(vue.previousMap, vue.nextMap)
         );
         layout2.setMinWidth(300);
         layout2.setAlignment(Pos.TOP_CENTER);

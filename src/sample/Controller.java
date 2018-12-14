@@ -74,6 +74,11 @@ public class Controller {
             facade.mv.goToGame.setDisable(false);
             modele.mapFile.clear();
             String map = facade.mv.choixTableau.getValue().toString();
+            for (int i = 0; i < facade.mv.modele.mapPool.size(); i++){
+                if (facade.mv.modele.mapPool.get(i) == facade.mv.choixTableau.getValue()){
+                    facade.mv.modele.curSelectedMap = i;
+                }
+            }
 
             try {
                 Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+map)), "ISO-8859-1");

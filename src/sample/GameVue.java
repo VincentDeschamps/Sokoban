@@ -28,6 +28,8 @@ public class GameVue extends Vue implements Observer {
     Button btnRi;
     Button btnLe;
     Button back;
+    Button nextMap;
+    Button previousMap;
     BackgroundImage BGForMap;
     boolean isVisible;
 
@@ -46,6 +48,8 @@ public class GameVue extends Vue implements Observer {
         btnRi = new Button("->");
         btnLe = new Button("<-");
         back = new Button("back");
+        previousMap = new Button("Previous");
+        nextMap = new Button("Next");
         map = new GridPane();
         map.setAlignment(Pos.CENTER);
         map.setMinWidth(1200);

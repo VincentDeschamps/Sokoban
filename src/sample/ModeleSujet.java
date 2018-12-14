@@ -12,6 +12,7 @@ public class ModeleSujet extends Sujet implements Modele {
     public ObservableList<String> mapPool;
     public List<Integer> animationMenu;
     public ArrayList<char[]> mapFile = new ArrayList<>();
+    public int curSelectedMap;
 
 
     public ModeleSujet(){
