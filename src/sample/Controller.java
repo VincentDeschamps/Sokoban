@@ -32,6 +32,7 @@ public class Controller {
         f.gv.btnUnd.setOnAction(new Undo());
         f.gv.btnRed.setOnAction(new Redo());
         f.gv.btnRes.setOnAction(new Reset());
+        f.gv.btnRep.setOnAction(new Replay());
 
         window.setTitle("Home");
         Scene scene1 = MonteurMenu.createScene(facade.mv);
@@ -290,6 +291,14 @@ public class Controller {
                 EventHandler<ActionEvent> gotogame = new GoToGame();
                 gotogame.handle(event);
             }
+        }
+    }
+
+    class Replay implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("Replayed");
         }
     }
 
