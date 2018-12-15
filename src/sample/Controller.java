@@ -134,6 +134,9 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
             facade.mv.changeGrid.pause();
             window.setTitle("Game");
             try{
@@ -159,6 +162,9 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
             facade.mv.changeGrid.release();
             window.setTitle("Home");
             Scene scene1 = MonteurMenu.createScene(facade.mv);
@@ -175,7 +181,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (facade.gv.modele.getIndexCurMap()-1>=0) {
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
+            if (!modele.rep.isAlive() &&  (facade.gv.modele.getIndexCurMap()-1>=0)) {
                 facade.gv.modele.setIndexCurMap(-1);
                 facade.gv.modele.changeCoups(-1);
                 facade.gv.actualiser();
@@ -192,7 +201,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (facade.gv.modele.getIndexCurMap()+1 < facade.gv.modele.getMaps().size()) {
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
+            if (!modele.rep.isAlive() && (facade.gv.modele.getIndexCurMap()+1 < facade.gv.modele.getMaps().size())) {
                 facade.gv.modele.setIndexCurMap(1);
                 facade.gv.modele.changeCoups(1);
                 facade.gv.actualiser();
@@ -209,6 +221,9 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
             System.out.println("click reset");
             facade.gv.modele.resetIndexCurMap();
             facade.gv.modele.resetMaps();
@@ -225,6 +240,9 @@ public class Controller {
 
         @Override
         public void handle(KeyEvent event) {
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
             switch (event.getCode()){
                 case R:
                     new Reset().handle(new ActionEvent());
@@ -268,6 +286,9 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
             if (modele.curSelectedMap != modele.mapPool.size() -1){
                 modele.curSelectedMap ++;
                 modele.notifier();
@@ -287,7 +308,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (modele.curSelectedMap != 0){
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
+            if (!modele.rep.isAlive() && modele.curSelectedMap != 0){
                 modele.curSelectedMap --;
                 modele.notifier();
                 String mapName = modele.mapPool.get(modele.curSelectedMap);
@@ -303,30 +327,11 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            new Thread(new Runnable(){
-                int index = 0;
-
-                @Override
-                public void run() {
-                    index = 0;
-                    while(index < modele.getMaps().size()){
-                        System.out.println("Replayed");
-                        modele.setIndexCurMap(-modele.getIndexCurMap()+index);
-                        Platform.runLater(() -> {
-                            facade.gv.actualiser();
-                            index+= 1;
-
-                        });
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }).start();
+            if (!modele.disponible) {
+                modele.stopReplay();
+            }
+            modele.runReplay();
             facade.gv.map.requestFocus();
-
         }
     }
 

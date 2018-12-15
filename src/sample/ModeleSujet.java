@@ -1,6 +1,7 @@
 package sample;
 
 import Game.Map;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,6 +18,8 @@ public class ModeleSujet extends Sujet implements Modele {
     public List<Integer> animationMenu;
     public ArrayList<char[]> mapFile = new ArrayList<>();
     public int curSelectedMap;
+    public Thread rep;
+    public boolean disponible = true;
 
     public ModeleSujet(){
         this.modeleConcret = new ModeleConcret();
@@ -84,28 +87,75 @@ public class ModeleSujet extends Sujet implements Modele {
 
     @Override
     public boolean PlayerMoves(int x, int y) {
-        Map map = getMap();
-        Map prec = new Map(map);
+        if (this.disponible) {
+            Map map = getMap();
+            Map prec = new Map(map);
 
-        if (modeleConcret.PlayerMoves(x,y)) {
-            while(getMaps().size()>getIndexCurMap()+1) {
-                getMaps().remove(getMaps().size()-1);
-            }
-            getMaps().add(prec);
-            if (getMaps().size()>1) {
-                Collections.swap(getMaps(), getMaps().size() - 1, getMaps().size() - 2);
-            }
-            setIndexCurMap(1);
+            if (modeleConcret.PlayerMoves(x, y)) {
+                while (getMaps().size() > getIndexCurMap() + 1) {
+                    getMaps().remove(getMaps().size() - 1);
+                }
+                getMaps().add(prec);
+                if (getMaps().size() > 1) {
+                    Collections.swap(getMaps(), getMaps().size() - 1, getMaps().size() - 2);
+                }
+                setIndexCurMap(1);
 
-            notifier();
-            return true;
+                notifier();
+                return true;
+            }
         }
-        return false;
+            return false;
     }
 
     @Override
     public boolean checkVictory() {
         return modeleConcret.checkVictory();
+    }
+
+    public void runReplay(){
+        this.disponible = false;
+
+        this.rep = new Thread(new Replay());
+        this.rep.setDaemon(true);
+
+        this.rep.start();
+
+    }
+
+    public void stopReplay(){
+        this.rep.stop();
+        this.disponible = true;
+        modeleConcret.changeCoups(-modeleConcret.getnbCoups()+modeleConcret.getMaps().size()-1);
+        modeleConcret.resetIndexCurMap();
+        modeleConcret.setIndexCurMap(modeleConcret.getMaps().size()-1);
+        notifier();
+    }
+
+    class Replay implements Runnable{
+        int index = 0;
+
+        @Override
+        public void run() {
+            index = 0;
+            while(index < getMaps().size()){
+                setIndexCurMap(-getIndexCurMap()+index);
+                modeleConcret.changeCoups(-modeleConcret.getnbCoups()+index);
+                Platform.runLater(() -> {
+                    notifier();
+                    index+= 1;
+
+                });
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            modeleConcret.changeCoups(-modeleConcret.getnbCoups()+modeleConcret.getMaps().size()-1);
+            modeleConcret.resetIndexCurMap();
+            modeleConcret.setIndexCurMap(modeleConcret.getMaps().size()-1);
+        }
     }
 
 }
