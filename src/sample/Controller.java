@@ -1,7 +1,9 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -182,6 +184,7 @@ public class Controller {
                 System.out.println(facade.gv.modele.getIndexCurMap());
                 System.out.println("#######################");
             }
+            facade.gv.map.requestFocus();
         }
     }
 
@@ -198,6 +201,7 @@ public class Controller {
                 System.out.println(facade.gv.modele.getIndexCurMap());
                 System.out.println("#######################");
             }
+            facade.gv.map.requestFocus();
         }
     }
 
@@ -210,6 +214,7 @@ public class Controller {
             facade.gv.modele.resetMaps();
             facade.gv.modele.startParty();
             facade.gv.actualiser();
+            facade.gv.map.requestFocus();
         }
     }
 
@@ -298,7 +303,30 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            System.out.println("Replayed");
+            new Thread(new Runnable(){
+                int index = 0;
+
+                @Override
+                public void run() {
+                    index = 0;
+                    while(index < modele.getMaps().size()){
+                        System.out.println("Replayed");
+                        modele.setIndexCurMap(-modele.getIndexCurMap()+index);
+                        Platform.runLater(() -> {
+                            facade.gv.actualiser();
+                            index+= 1;
+
+                        });
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
+            facade.gv.map.requestFocus();
+
         }
     }
 
