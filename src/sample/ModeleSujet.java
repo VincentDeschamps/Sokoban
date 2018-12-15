@@ -59,9 +59,15 @@ public class ModeleSujet extends Sujet implements Modele {
     }
 
     @Override
+    public void resetMaps() { modeleConcret.resetMaps(); }
+
+    @Override
     public int getIndexCurMap() { return modeleConcret.getIndexCurMap(); }
 
     public void setIndexCurMap(int i) { modeleConcret.setIndexCurMap(i); }
+
+    @Override
+    public void resetIndexCurMap() { modeleConcret.resetIndexCurMap(); }
 
     @Override
     public Map getMap(){ return getMaps().get(getIndexCurMap()); }

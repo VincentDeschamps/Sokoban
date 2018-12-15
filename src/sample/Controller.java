@@ -31,6 +31,7 @@ public class Controller {
         f.gv.previousMap.setOnAction(new GoToPreviousMap());
         f.gv.btnUnd.setOnAction(new Undo());
         f.gv.btnRed.setOnAction(new Redo());
+        f.gv.btnRes.setOnAction(new Reset());
 
         window.setTitle("Home");
         Scene scene1 = MonteurMenu.createScene(facade.mv);
@@ -199,6 +200,18 @@ public class Controller {
         }
     }
 
+    class Reset implements EventHandler<ActionEvent>{
+
+        @Override
+        public void handle(ActionEvent event) {
+            System.out.println("click reset");
+            facade.gv.modele.resetIndexCurMap();
+            facade.gv.modele.resetMaps();
+            facade.gv.modele.startParty();
+            facade.gv.actualiser();
+        }
+    }
+
     /**
      * Gets the user's inputs and modifies the model if necessary
      */
@@ -207,6 +220,9 @@ public class Controller {
         @Override
         public void handle(KeyEvent event) {
             switch (event.getCode()){
+                case R:
+                    new Reset().handle(new ActionEvent());
+                    break;
                 case Y:
                     new Redo().handle(new ActionEvent());
                     break;

@@ -32,10 +32,20 @@ public class ModeleConcret implements Modele{
     }
 
     @Override
+    public void resetMaps() {
+        Map tmpFirst = maps.get(0);
+        maps.clear();
+        maps.add(tmpFirst);
+    }
+
+    @Override
     public int getIndexCurMap() { return indexCurMap; }
 
     @Override
     public void setIndexCurMap(int i) { indexCurMap+=i; }
+
+    @Override
+    public void resetIndexCurMap() { indexCurMap = 0; }
 
     @Override
     public Map getMap() { return maps.get(indexCurMap); }

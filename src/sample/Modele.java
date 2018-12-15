@@ -48,6 +48,11 @@ public interface Modele {
     ArrayList<Map> getMaps();
 
     /**
+     * Reset the list of map copies
+     */
+    void resetMaps();
+
+    /**
      *
      * @return "indexCurMap" the index of the map that is displayed in the list
      */
@@ -58,6 +63,11 @@ public interface Modele {
      * @param i the number to add to indexCurMap
      */
     void setIndexCurMap(int i);
+
+    /**
+     * Reset indexCurMap to 0
+     */
+    void resetIndexCurMap();
 
     /**
      *
