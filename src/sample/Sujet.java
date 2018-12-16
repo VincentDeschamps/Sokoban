@@ -38,4 +38,10 @@ public abstract class Sujet {
     public abstract String changeToPrevioustMap();
 
     public abstract void setMapPool();
+
+    /**
+     * Loads the map concerned by the url and modifies the model with datas obtained in the concerned file
+     * @param map String name of the file
+     */
+    public abstract void mapSelected(String map);
 }

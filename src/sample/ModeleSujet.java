@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -59,6 +59,40 @@ public class ModeleSujet extends Sujet implements Modele {
     @Override
     public void setMapPool() {
         mapPool = LoadMapsFiles();
+        notifier();
+    }
+
+    @Override
+    public void mapSelected(String map) {
+        for (int i = 0; i < mapPool.size(); i++) {
+            if (mapPool.get(i) == map) {
+                curSelectedMap = i;
+            }
+        }
+        mapFile.clear();
+        try {
+            Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+map)), "ISO-8859-1");
+            BufferedReader reader = new BufferedReader(fin);
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("Title:")) {
+                    setMapName(line.split(":")[1].trim());
+                }
+                else if (line.contains("Author:")) {
+                    setAuthorName(line.split(":")[1].trim());
+                }
+                else if (!line.contains("T") && !line.contains("C") && !line.contains("A") && !line.contains("D")) {
+                    char[] lineArray = line.toCharArray();
+                    mapFile.add(lineArray);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        notifier();
     }
 
     /**

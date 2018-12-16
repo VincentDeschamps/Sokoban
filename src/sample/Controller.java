@@ -40,7 +40,6 @@ public class Controller {
 
         //charge into ObservableList<String> modele.mapPool the maps in src/tableaux/
         this.modele.setMapPool();
-        this.modele.notifier();
         //puts a controller on the comboBox (when a map will be selected, it will be displayed)
         f.mv.choixTableau.setOnAction(new LoadMap());
 
@@ -61,45 +60,9 @@ public class Controller {
             facade.mv.goToGame.setDisable(false);
 
             String map = facade.mv.choixTableau.getValue().toString();
-            for (int i = 0; i < facade.mv.modele.mapPool.size(); i++) {
-                if (facade.mv.modele.mapPool.get(i) == facade.mv.choixTableau.getValue()) {
-                    facade.mv.modele.curSelectedMap = i;
-                }
-            }
-            mapLoader(map);
+            modele.mapSelected(map);
+
         }
-    }
-
-    /**
-     * Loads the map concerned by the url and modifies the model with datas obtained in the concerned file
-     * @param url String url of the file
-     */
-    public void mapLoader(String url){
-        modele.mapFile.clear();
-        try {
-            Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+url)), "ISO-8859-1");
-            BufferedReader reader = new BufferedReader(fin);
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.contains("Title:")) {
-                    modele.setMapName(line.split(":")[1].trim());
-                }
-                else if (line.contains("Author:")) {
-                    modele.setAuthorName(line.split(":")[1].trim());
-                }
-                else if (!line.contains("T") && !line.contains("C") && !line.contains("A") && !line.contains("D")) {
-                    char[] lineArray = line.toCharArray();
-                    modele.mapFile.add(lineArray);
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(url);
-        modele.notifier();
     }
 
     /**
@@ -254,7 +217,7 @@ public class Controller {
         public void handle(ActionEvent event) {
             String mapName = modele.changeToNextMap();
             if (mapName != null){
-                mapLoader(mapName);
+                modele.mapSelected(mapName);
                 new GoToGame().handle(event);
             }
         }
@@ -269,7 +232,7 @@ public class Controller {
         public void handle(ActionEvent event) {
             String mapName = modele.changeToPrevioustMap();
             if (mapName != null){
-                mapLoader(mapName);
+                modele.mapSelected(mapName);
                 new GoToGame().handle(event);
             }
         }
