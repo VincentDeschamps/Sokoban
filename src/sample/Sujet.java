@@ -44,4 +44,8 @@ public abstract class Sujet {
      * @param map String name of the file
      */
     public abstract void mapSelected(String map);
+
+    public abstract void createMap() throws Exception;
+
+    public abstract void startParty();
 }

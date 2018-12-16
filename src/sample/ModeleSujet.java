@@ -120,6 +120,14 @@ public class ModeleSujet extends Sujet implements Modele {
     }
 
     @Override
+    public void createMap() throws Exception {
+        if (!disponible) {
+            stopReplay();
+        }
+        createMap("src" + File.separator + "tableaux" + File.separator + mapPool.get(curSelectedMap));
+    }
+
+    @Override
     public void createMap(String url) throws Exception {
         modeleConcret.createMap(url);
     }

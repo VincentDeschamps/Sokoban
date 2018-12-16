@@ -73,13 +73,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
             facade.mv.changeGrid.pause();
             window.setTitle("Game");
             try{
-                modele.createMap("src" + File.separator + "tableaux" + File.separator + modele.mapPool.get(modele.curSelectedMap));
+                modele.createMap();
                 Scene scene2 = MonteurGame.createScene(facade.gv);
                 window.setScene(scene2);
                 facade.gv.isVisible = true;
