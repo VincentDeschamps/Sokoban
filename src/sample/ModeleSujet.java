@@ -17,7 +17,7 @@ import java.util.List;
  * Presents all datas wich views needs
  */
 public class ModeleSujet extends Sujet implements Modele {
-    ModeleConcret modeleConcret;
+    Modele modeleConcret;
     public ObservableList<String> mapPool;
     public List<Integer> animationMenu;
     public ArrayList<char[]> mapFile = new ArrayList<>();

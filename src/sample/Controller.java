@@ -20,7 +20,7 @@ public class Controller {
     private Sujet modele;
     private FacadeVues facade;
 
-    public Controller(Stage win, FacadeVues f, ModeleSujet modele){
+    public Controller(Stage win, FacadeVues f, Sujet modele){
         window = win;
         facade = f;
         this.modele = modele;
