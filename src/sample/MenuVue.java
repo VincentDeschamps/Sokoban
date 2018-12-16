@@ -46,7 +46,7 @@ public class MenuVue implements Observer{
     //A runnable that will be called every 500mx (animation of the menu)
     Animate changeGrid;
 
-    public MenuVue(ModeleSujet modele){
+    public MenuVue(Sujet modele){
         this.modele = modele;
         this.modele.subscribe(this);
 
@@ -95,7 +95,7 @@ public class MenuVue implements Observer{
         frameList.add(Arrays.asList(9,5,1));
 
         //combo box containing mapPool (the files in src/tableaux/)
-        choixTableau = new ComboBox(modele.mapPool);
+        choixTableau = new ComboBox(modele.getMapFiles());
         choixTableau.setMinWidth(300);
         mapInfo = new Label();
         mapInfo.setFont(Font.font("Webdings", 16));

@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 /**
  * Class observed by views
  * Presents all datas wich views needs

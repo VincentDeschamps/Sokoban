@@ -83,6 +83,10 @@ public interface Modele {
      */
     boolean PlayerMoves(int x, int y);
 
+    /**
+     *
+     * @return if the party has been won
+     */
     boolean checkVictory();
 
 }

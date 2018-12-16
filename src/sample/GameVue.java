@@ -36,7 +36,7 @@ public class GameVue implements Observer {
     BackgroundImage BGForPanel;
     boolean isVisible;
 
-    public GameVue(ModeleSujet modele){
+    public GameVue(Sujet modele){
         this.modele = modele;
         modele.subscribe(this);
         nbCoups = new Label(modele.getnbCoups()+"");
