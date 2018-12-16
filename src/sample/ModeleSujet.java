@@ -82,24 +82,13 @@ public class ModeleSujet extends Sujet implements Modele {
 
     @Override
     public boolean PlayerMoves(int x, int y) {
-        if (this.disponible) {
-            Map map = getMap();
-            Map prec = new Map(map);
 
-            if (modeleConcret.PlayerMoves(x, y)) {
-                while (getMaps().size() > getnbCoups() + 1) {
-                    getMaps().remove(getMaps().size() - 1);
-                }
-                getMaps().add(prec);
-                if (getMaps().size() > 1) {
-                    Collections.swap(getMaps(), getMaps().size() - 1, getMaps().size() - 2);
-                }
-
-                notifier();
-                return true;
-            }
+        if (modeleConcret.PlayerMoves(x, y)) {
+            notifier();
+            return true;
         }
-            return false;
+
+        return false;
     }
 
     @Override

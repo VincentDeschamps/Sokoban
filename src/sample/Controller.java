@@ -182,7 +182,7 @@ public class Controller {
             if (!modele.disponible) {
                 modele.stopReplay();
             }
-            if (modele.disponible &&  (facade.gv.modele.getnbCoups()-1>=0)) {
+            if (facade.gv.modele.getnbCoups()-1>=0) {
                 facade.gv.modele.changeCoups(modele.getnbCoups()-1);
                 facade.gv.actualiser();
             }

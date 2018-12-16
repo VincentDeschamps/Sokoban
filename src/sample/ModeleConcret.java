@@ -55,8 +55,14 @@ public class ModeleConcret implements Modele{
 
     @Override
     public boolean PlayerMoves(int x, int y) {
-        if (maps.get(indexCurMap).isMovable(maps.get(indexCurMap).player, x, y)){
+        Map map = getMap();
+        Map next = new Map(map);
+        if (next.isMovable(next.player, x, y)){
             indexCurMap++;
+            while (getMaps().size() > getnbCoups()) {
+                getMaps().remove(getMaps().size() - 1);
+            }
+            maps.add(next);
             return true;
         }
         return false;
