@@ -16,7 +16,6 @@ import java.util.List;
 public class ModeleSujet extends Sujet implements Modele {
     Modele modeleConcret;
     public ObservableList<String> mapPool;
-    public List<Integer> animationMenu;
     public ArrayList<char[]> mapFile = new ArrayList<>();
     public int curSelectedMap;
     public Thread rep;
@@ -218,6 +217,11 @@ public class ModeleSujet extends Sujet implements Modele {
 
     @Override
     public Map getMap(){ return getMaps().get(getnbCoups()); }
+
+    @Override
+    public ArrayList<char[]> getMapFile() {
+        return mapFile;
+    }
 
     @Override
     public void setMapName(String newName) {

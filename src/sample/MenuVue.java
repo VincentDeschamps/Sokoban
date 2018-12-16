@@ -22,9 +22,10 @@ import java.util.List;
  */
 public class MenuVue implements Observer{
 
-    public ModeleSujet modele;
+    public Sujet modele;
 
 
+    public List<Integer> animationMenu;
     public Button goToGame;
     public BackgroundImage BGForMenu;
     public Label title;
@@ -113,10 +114,10 @@ public class MenuVue implements Observer{
     public void actualiser() {
         Platform.runLater(() -> {
 
-            choixTableau.setItems(modele.mapPool);
+            choixTableau.setItems(modele.getMapFiles());
             previewAppend();
         });
-        choixTableau.setValue(modele.mapPool.get(modele.curSelectedMap));
+        choixTableau.setValue(modele.getMapFiles().get(modele.getMapSelectedIndex()));
     }
 
 
@@ -129,7 +130,7 @@ public class MenuVue implements Observer{
                 menuAnimation.getChildren().clear();
                 initGridSize();
             }
-            addImageGridpane(menuAnimation, "PNG"+File.separator+"Character"+modele.animationMenu.get(0)+".png", modele.animationMenu.get(2), modele.animationMenu.get(1), 3);
+            addImageGridpane(menuAnimation, "PNG"+File.separator+"Character"+animationMenu.get(0)+".png", animationMenu.get(2), animationMenu.get(1), 3);
 
             if (menuAnimation.getChildren().size() > 2){
                 menuAnimation.getChildren().get(menuAnimation.getChildren().size()-2).setVisible(false);
@@ -143,13 +144,13 @@ public class MenuVue implements Observer{
     public void previewAppend(){
         mapPreview.getChildren().clear();
         mapInfo.setText("");
-        if (modele.mapFile.size()>0){
-            int height = modele.mapFile.size();
+        if (modele.getMapFile().size()>0){
+            int height = modele.getMapFile().size();
             int width = 0;
 
             for (int i = 0; i < height; i++) {
-                if (width == 0 || modele.mapFile.get(i).length > width){
-                    width = modele.mapFile.get(i).length;
+                if (width == 0 || modele.getMapFiles().get(i).length() > width){
+                    width = modele.getMapFiles().get(i).length();
                 }
             }
 
@@ -160,8 +161,8 @@ public class MenuVue implements Observer{
             int sizeBlock = Math.min(heightBlock, widthBlock) > 70 ? 70 : Math.min(heightBlock, widthBlock);
 
             for (int i = 0; i < height; i++){
-                for (int j = 0; j< modele.mapFile.get(i).length; j++){
-                    char e = modele.mapFile.get(i)[j];
+                for (int j = 0; j< modele.getMapFile().get(i).length; j++){
+                    char e = modele.getMapFile().get(i)[j];
                     switch(e){
                         case GameChars.WALL:   addImageGridpane(mapPreview, "PNG"+ File.separator+"Wall_Black.png", sizeBlock, j, i);
                             break;
@@ -218,7 +219,7 @@ public class MenuVue implements Observer{
 
         public void run() {
             while (running) {
-                modele.animationMenu = frameList.get(indiceFrame);
+                animationMenu = frameList.get(indiceFrame);
                 actuAnim();
 
                 // 0 <= indiceFrame < length of frameList

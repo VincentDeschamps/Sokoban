@@ -128,4 +128,6 @@ public abstract class Sujet {
     public abstract ObservableList<String> getMapFiles();
 
     public abstract Map getMap();
+
+    public abstract ArrayList<char[]> getMapFile();
 }

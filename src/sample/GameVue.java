@@ -88,7 +88,7 @@ public class GameVue implements Observer {
             nbCoups.setText(modele.getnbCoups()+"");
             nom.setText("Map " + modele.getMapName() + " de " + modele.getAuthorName());
             createMap();
-            if (modele.getnbCoups() == 0) {
+            if (modele.getMapSelectedIndex() == 0) {
                 previousMap.setDisable(true);
                 nextMap.setDisable(false);
             }
