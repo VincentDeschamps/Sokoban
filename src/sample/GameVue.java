@@ -5,8 +5,10 @@ import Game.CaseArrive;
 import Game.Map;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
@@ -21,6 +23,8 @@ public class GameVue implements Observer {
 
     Label nbCoups;
     Label nom;
+    Label gameCommandLabel;
+    Label navigationCommandLabel;
     Button btnRep;
     Button btnRes;
     Button btnUnd;
@@ -29,6 +33,7 @@ public class GameVue implements Observer {
     Button nextMap;
     Button previousMap;
     BackgroundImage BGForMap;
+    BackgroundImage BGForPanel;
     boolean isVisible;
 
     public GameVue(ModeleSujet modele){
@@ -37,13 +42,26 @@ public class GameVue implements Observer {
         nbCoups = new Label(modele.getnbCoups()+"");
         nbCoups.setFont(Font.font("Webdings", 60));
         nom = new Label("Map " + modele.getMapName() + " de " + modele.getAuthorName());
+        gameCommandLabel = new Label("Commandes du jeu :");
+        gameCommandLabel.setFont(Font.font("Webdings", 15));
+        navigationCommandLabel = new Label("Navigation :");
+        navigationCommandLabel.setFont(Font.font("Webdings", 15));
         btnRep = new Button("Replay");
+        btnRep.setGraphic(new ImageView(new Image("PNG/replay.png", 20,20,true,true)));
         btnRes = new Button("Reset");
-        btnUnd = new Button("Undo");
-        btnRed = new Button("Redo");
-        back = new Button("back");
+        btnRes.setGraphic(new ImageView(new Image("PNG/reset.png", 20,20,true,true)));
+        btnUnd = new Button("Undo (z)");
+        btnUnd.setGraphic(new ImageView(new Image("PNG/undo.png", 20,20,true,true)));
+        btnUnd.setContentDisplay(ContentDisplay.RIGHT);
+        btnRed = new Button("Redo (y)");
+        btnRed.setGraphic(new ImageView(new Image("PNG/redo.png", 20,20,true,true)));
+        back = new Button("Back");
+        back.setGraphic(new ImageView(new Image("PNG/back.png", 20,20,true,true)));
         previousMap = new Button("Previous");
+        previousMap.setGraphic(new ImageView(new Image("PNG/previous.png", 20,20,true,true)));
         nextMap = new Button("Next");
+        nextMap.setGraphic(new ImageView(new Image("PNG/next.png", 20,20,true,true)));
+        nextMap.setContentDisplay(ContentDisplay.RIGHT);
         map = new GridPane();
         map.setAlignment(Pos.CENTER);
         map.setMinWidth(1200);
@@ -54,6 +72,13 @@ public class GameVue implements Observer {
                 BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
+        //setting the background
+        BGForPanel = new BackgroundImage(
+                new Image("PNG/GroundGravel_Sand.png",50,50,true,true),
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
     }
 
 

@@ -184,7 +184,7 @@ public class Controller {
             if (!modele.disponible) {
                 modele.stopReplay();
             }
-            if (!modele.rep.isAlive() &&  (facade.gv.modele.getIndexCurMap()-1>=0)) {
+            if (modele.disponible &&  (facade.gv.modele.getIndexCurMap()-1>=0)) {
                 facade.gv.modele.setIndexCurMap(-1);
                 facade.gv.modele.changeCoups(-1);
                 facade.gv.actualiser();
@@ -204,7 +204,7 @@ public class Controller {
             if (!modele.disponible) {
                 modele.stopReplay();
             }
-            if (!modele.rep.isAlive() && (facade.gv.modele.getIndexCurMap()+1 < facade.gv.modele.getMaps().size())) {
+            if (modele.disponible && (facade.gv.modele.getIndexCurMap()+1 < facade.gv.modele.getMaps().size())) {
                 facade.gv.modele.setIndexCurMap(1);
                 facade.gv.modele.changeCoups(1);
                 facade.gv.actualiser();
@@ -311,7 +311,7 @@ public class Controller {
             if (!modele.disponible) {
                 modele.stopReplay();
             }
-            if (!modele.rep.isAlive() && modele.curSelectedMap != 0){
+            if (modele.disponible && modele.curSelectedMap != 0){
                 modele.curSelectedMap --;
                 modele.notifier();
                 String mapName = modele.mapPool.get(modele.curSelectedMap);
