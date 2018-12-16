@@ -40,6 +40,8 @@ public class Controller {
 
         f.gv.map.setOnKeyPressed(new PlayerInputs());
 
+        new LoadMap().handle(new ActionEvent());
+
     }
 
 
