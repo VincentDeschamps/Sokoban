@@ -17,7 +17,7 @@ import javafx.scene.text.Font;
  */
 public class GameVue implements Observer {
 
-    ModeleSujet modele;
+    Sujet modele;
 
     GridPane map;
 
@@ -88,11 +88,11 @@ public class GameVue implements Observer {
             nbCoups.setText(modele.getnbCoups()+"");
             nom.setText("Map " + modele.getMapName() + " de " + modele.getAuthorName());
             createMap();
-            if (modele.curSelectedMap == 0) {
+            if (modele.getnbCoups() == 0) {
                 previousMap.setDisable(true);
                 nextMap.setDisable(false);
             }
-            else if (modele.curSelectedMap == modele.mapPool.size() - 1){
+            else if (modele.getMapSelectedIndex() == modele.getMapFiles().size() - 1){
                 nextMap.setDisable(true);
                 previousMap.setDisable(false);
             } else {

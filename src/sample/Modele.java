@@ -84,4 +84,5 @@ public interface Modele {
     boolean PlayerMoves(int x, int y);
 
     boolean checkVictory();
+
 }

@@ -4,12 +4,9 @@ import Game.Map;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 /**
@@ -95,6 +92,11 @@ public class ModeleSujet extends Sujet implements Modele {
         notifier();
     }
 
+    @Override
+    public int getMapSelectedIndex() {
+        return curSelectedMap;
+    }
+
     /**
      * Get the files in "src/tableaux" and put them in ObservableList maps
      * @return "ObservableList<String>" containing the files names
@@ -145,6 +147,11 @@ public class ModeleSujet extends Sujet implements Modele {
     @Override
     public String getAuthorName() {
         return modeleConcret.getAuthorName();
+    }
+
+    @Override
+    public ObservableList<String> getMapFiles() {
+        return mapPool;
     }
 
     @Override

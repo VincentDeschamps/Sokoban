@@ -1,16 +1,11 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
-import java.io.*;
-import java.util.Comparator;
 
 /**
  * Controller
