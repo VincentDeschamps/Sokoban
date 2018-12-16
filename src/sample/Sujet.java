@@ -30,4 +30,8 @@ public abstract class Sujet {
         }
 
     }
+
+    public abstract String changeToNextMap();
+
+    public abstract String changeToPrevioustMap();
 }

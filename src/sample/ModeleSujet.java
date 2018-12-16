@@ -4,6 +4,8 @@ import Game.Map;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +26,32 @@ public class ModeleSujet extends Sujet implements Modele {
     public ModeleSujet(){
         this.modeleConcret = new ModeleConcret();
         mapPool = FXCollections.observableArrayList();
+    }
+
+    @Override
+    public String changeToNextMap() {
+        if (!disponible) {
+            stopReplay();
+        }
+        if (curSelectedMap != mapPool.size() -1){
+            curSelectedMap ++;
+            notifier();
+            return mapPool.get(curSelectedMap);
+        }
+        return null;
+    }
+
+    @Override
+    public String changeToPrevioustMap() {
+        if (!disponible) {
+            stopReplay();
+        }
+        if (curSelectedMap != 0){
+            curSelectedMap--;
+            notifier();
+            return mapPool.get(curSelectedMap);
+        }
+        return null;
     }
 
     @Override

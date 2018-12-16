@@ -274,17 +274,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
-            if (modele.curSelectedMap != modele.mapPool.size() -1){
-                modele.curSelectedMap ++;
-                modele.notifier();
-                String mapName = modele.mapPool.get(modele.curSelectedMap);
+            String mapName = modele.changeToNextMap();
+            if (mapName != null){
                 mapLoader(mapName);
-
-                EventHandler<ActionEvent> gotogame = new GoToGame();
-                gotogame.handle(event);
+                new GoToGame().handle(event);
             }
         }
     }
@@ -296,17 +289,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
-            if (modele.disponible && modele.curSelectedMap != 0){
-                modele.curSelectedMap --;
-                modele.notifier();
-                String mapName = modele.mapPool.get(modele.curSelectedMap);
+            String mapName = modele.changeToPrevioustMap();
+            if (mapName != null){
                 mapLoader(mapName);
-
-                EventHandler<ActionEvent> gotogame = new GoToGame();
-                gotogame.handle(event);
+                new GoToGame().handle(event);
             }
         }
     }
