@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 /**
@@ -34,4 +36,6 @@ public abstract class Sujet {
     public abstract String changeToNextMap();
 
     public abstract String changeToPrevioustMap();
+
+    public abstract void setMapPool();
 }

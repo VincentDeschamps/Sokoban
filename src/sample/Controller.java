@@ -39,7 +39,7 @@ public class Controller {
         window.setScene(scene1);
 
         //charge into ObservableList<String> modele.mapPool the maps in src/tableaux/
-        this.modele.mapPool = getMaps();
+        this.modele.setMapPool();
         this.modele.notifier();
         //puts a controller on the comboBox (when a map will be selected, it will be displayed)
         f.mv.choixTableau.setOnAction(new LoadMap());
@@ -48,29 +48,7 @@ public class Controller {
 
     }
 
-    /**
-     * Get the files in "src/tableaux" and put them in ObservableList maps
-     * @return "ObservableList<String>" containing the files names
-     */
-    public ObservableList<String> getMaps() {
-        ObservableList<String> maps =  FXCollections.observableArrayList();
 
-        File directory = new File("src"+File.separator+"tableaux");
-
-        //get all the files from a directory
-        File[] fList = directory.listFiles();
-        for (File file : fList) {
-            maps.add(file.getName());
-        }
-        maps.sort(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });
-
-        return maps;
-    }
 
     /**
      * Called when a file is selected in the ComboBox, read it,

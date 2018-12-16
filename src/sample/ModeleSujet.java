@@ -7,8 +7,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 /**
  * Class observed by views
@@ -52,6 +54,35 @@ public class ModeleSujet extends Sujet implements Modele {
             return mapPool.get(curSelectedMap);
         }
         return null;
+    }
+
+    @Override
+    public void setMapPool() {
+        mapPool = LoadMapsFiles();
+    }
+
+    /**
+     * Get the files in "src/tableaux" and put them in ObservableList maps
+     * @return "ObservableList<String>" containing the files names
+     */
+    public ObservableList<String> LoadMapsFiles() {
+        ObservableList<String> maps =  FXCollections.observableArrayList();
+
+        File directory = new File("src"+File.separator+"tableaux");
+
+        //get all the files from a directory
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            maps.add(file.getName());
+        }
+        maps.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+
+        return maps;
     }
 
     @Override
