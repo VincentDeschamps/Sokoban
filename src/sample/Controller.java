@@ -17,7 +17,7 @@ import java.util.Comparator;
  */
 public class Controller {
     private Stage window;
-    private ModeleSujet modele;
+    private Sujet modele;
     private FacadeVues facade;
 
     public Controller(Stage win, FacadeVues f, ModeleSujet modele){
@@ -98,9 +98,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
+            modele.GoToMenu();
             facade.mv.changeGrid.release();
             window.setTitle("Home");
             Scene scene1 = MonteurMenu.createScene(facade.mv);
@@ -117,13 +115,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
-            if (facade.gv.modele.getnbCoups()-1>=0) {
-                facade.gv.modele.changeCoups(modele.getnbCoups()-1);
-                facade.gv.actualiser();
-            }
+            modele.Undo();
             facade.gv.map.requestFocus();
         }
     }
@@ -132,13 +124,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
-            if (facade.gv.modele.getnbCoups()+1 < facade.gv.modele.getMaps().size()) {
-                facade.gv.modele.changeCoups(modele.getnbCoups()+1);
-                facade.gv.actualiser();
-            }
+            modele.Redo();
             facade.gv.map.requestFocus();
         }
     }
@@ -147,14 +133,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
-            System.out.println("click reset");
-            facade.gv.modele.resetIndexCurMap();
-            facade.gv.modele.resetMaps();
-            facade.gv.modele.startParty();
-            facade.gv.actualiser();
+            modele.Reset();
             facade.gv.map.requestFocus();
         }
     }
@@ -166,9 +145,7 @@ public class Controller {
 
         @Override
         public void handle(KeyEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
+
             switch (event.getCode()){
                 case R:
                     new Reset().handle(new ActionEvent());
@@ -239,10 +216,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent event) {
-            if (!modele.disponible) {
-                modele.stopReplay();
-            }
-            modele.runReplay();
+            modele.Replay();
             facade.gv.map.requestFocus();
         }
     }

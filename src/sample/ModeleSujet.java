@@ -158,6 +158,47 @@ public class ModeleSujet extends Sujet implements Modele {
     }
 
     @Override
+    public void GoToMenu() {
+        if (!disponible) {
+            stopReplay();
+        }
+    }
+
+    @Override
+    public void Undo() {
+        if (!disponible) {
+            stopReplay();
+        }
+        if (getnbCoups()-1>=0) {
+            changeCoups(getnbCoups() - 1);
+            notifier();
+        }
+    }
+
+    @Override
+    public void Redo() {
+        if (!disponible) {
+            stopReplay();
+        }
+        if (getnbCoups()+1 < getMaps().size()) {
+            changeCoups(getnbCoups()+1);
+            notifier();
+        }
+    }
+
+    @Override
+    public void Reset() {
+        if (!disponible) {
+            stopReplay();
+        }
+        System.out.println("click reset");
+        resetIndexCurMap();
+        resetMaps();
+        startParty();
+        notifier();
+    }
+
+    @Override
     public ArrayList<Map> getMaps() {
         return modeleConcret.getMaps();
     }
@@ -183,7 +224,9 @@ public class ModeleSujet extends Sujet implements Modele {
 
     @Override
     public boolean PlayerMoves(int x, int y) {
-
+        if (!disponible) {
+            stopReplay();
+        }
         if (modeleConcret.PlayerMoves(x, y)) {
             notifier();
             return true;
@@ -195,6 +238,14 @@ public class ModeleSujet extends Sujet implements Modele {
     @Override
     public boolean checkVictory() {
         return modeleConcret.checkVictory();
+    }
+
+    @Override
+    public void Replay() {
+        if (!disponible) {
+            stopReplay();
+        }
+        runReplay();
     }
 
     public void runReplay(){

@@ -48,4 +48,18 @@ public abstract class Sujet {
     public abstract void createMap() throws Exception;
 
     public abstract void startParty();
+
+    public abstract void GoToMenu();
+
+    public abstract void Undo();
+
+    public abstract void Redo();
+
+    public abstract void Reset();
+
+    public abstract boolean PlayerMoves(int i, int i1);
+
+    public abstract boolean checkVictory();
+
+    public abstract void Replay();
 }
