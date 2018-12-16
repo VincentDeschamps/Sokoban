@@ -9,7 +9,6 @@ import java.util.List;
 
 public class ModeleConcret implements Modele{
 
-    private int nbCoups = 0;
     private String mapName = "";
     private String authorName = "";
     private ArrayList<Map> maps = new ArrayList<>();
@@ -22,7 +21,7 @@ public class ModeleConcret implements Modele{
 
     @Override
     public void startParty() {
-        nbCoups = 0;
+        indexCurMap = 0;
 
     }
 
@@ -37,12 +36,6 @@ public class ModeleConcret implements Modele{
         maps.clear();
         maps.add(tmpFirst);
     }
-
-    @Override
-    public int getIndexCurMap() { return indexCurMap; }
-
-    @Override
-    public void setIndexCurMap(int i) { indexCurMap+=i; }
 
     @Override
     public void resetIndexCurMap() { indexCurMap = 0; }
@@ -63,7 +56,7 @@ public class ModeleConcret implements Modele{
     @Override
     public boolean PlayerMoves(int x, int y) {
         if (maps.get(indexCurMap).isMovable(maps.get(indexCurMap).player, x, y)){
-            nbCoups++;
+            indexCurMap++;
             return true;
         }
         return false;
@@ -87,7 +80,7 @@ public class ModeleConcret implements Modele{
 
     @Override
     public int getnbCoups() {
-        return nbCoups;
+        return indexCurMap;
     }
 
     @Override
@@ -102,7 +95,7 @@ public class ModeleConcret implements Modele{
 
     @Override
     public void changeCoups(int i) {
-        nbCoups += i;
+        indexCurMap = i;
     }
 
 }

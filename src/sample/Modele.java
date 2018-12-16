@@ -53,18 +53,6 @@ public interface Modele {
     void resetMaps();
 
     /**
-     *
-     * @return "indexCurMap" the index of the map that is displayed in the list
-     */
-    int getIndexCurMap();
-
-    /**
-     *
-     * @param i the number to add to indexCurMap
-     */
-    void setIndexCurMap(int i);
-
-    /**
      * Reset indexCurMap to 0
      */
     void resetIndexCurMap();

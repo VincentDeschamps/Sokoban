@@ -65,15 +65,10 @@ public class ModeleSujet extends Sujet implements Modele {
     public void resetMaps() { modeleConcret.resetMaps(); }
 
     @Override
-    public int getIndexCurMap() { return modeleConcret.getIndexCurMap(); }
-
-    public void setIndexCurMap(int i) { modeleConcret.setIndexCurMap(i); }
-
-    @Override
     public void resetIndexCurMap() { modeleConcret.resetIndexCurMap(); }
 
     @Override
-    public Map getMap(){ return getMaps().get(getIndexCurMap()); }
+    public Map getMap(){ return getMaps().get(getnbCoups()); }
 
     @Override
     public void setMapName(String newName) {
@@ -92,14 +87,13 @@ public class ModeleSujet extends Sujet implements Modele {
             Map prec = new Map(map);
 
             if (modeleConcret.PlayerMoves(x, y)) {
-                while (getMaps().size() > getIndexCurMap() + 1) {
+                while (getMaps().size() > getnbCoups() + 1) {
                     getMaps().remove(getMaps().size() - 1);
                 }
                 getMaps().add(prec);
                 if (getMaps().size() > 1) {
                     Collections.swap(getMaps(), getMaps().size() - 1, getMaps().size() - 2);
                 }
-                setIndexCurMap(1);
 
                 notifier();
                 return true;
@@ -128,7 +122,7 @@ public class ModeleSujet extends Sujet implements Modele {
         this.disponible = true;
         modeleConcret.changeCoups(-modeleConcret.getnbCoups()+modeleConcret.getMaps().size()-1);
         modeleConcret.resetIndexCurMap();
-        modeleConcret.setIndexCurMap(modeleConcret.getMaps().size()-1);
+        modeleConcret.changeCoups(modeleConcret.getMaps().size()-1);
         notifier();
     }
 
@@ -139,22 +133,18 @@ public class ModeleSujet extends Sujet implements Modele {
         public void run() {
             index = 0;
             while(index < getMaps().size()){
-                setIndexCurMap(-getIndexCurMap()+index);
-                modeleConcret.changeCoups(-modeleConcret.getnbCoups()+index);
+                changeCoups(index);
                 Platform.runLater(() -> {
                     notifier();
                     index+= 1;
 
                 });
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            modeleConcret.changeCoups(-modeleConcret.getnbCoups()+modeleConcret.getMaps().size()-1);
-            modeleConcret.resetIndexCurMap();
-            modeleConcret.setIndexCurMap(modeleConcret.getMaps().size()-1);
         }
     }
 

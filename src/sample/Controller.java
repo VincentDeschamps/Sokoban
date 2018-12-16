@@ -1,9 +1,7 @@
 package sample;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -184,14 +182,9 @@ public class Controller {
             if (!modele.disponible) {
                 modele.stopReplay();
             }
-            if (modele.disponible &&  (facade.gv.modele.getIndexCurMap()-1>=0)) {
-                facade.gv.modele.setIndexCurMap(-1);
-                facade.gv.modele.changeCoups(-1);
+            if (modele.disponible &&  (facade.gv.modele.getnbCoups()-1>=0)) {
+                facade.gv.modele.changeCoups(modele.getnbCoups()-1);
                 facade.gv.actualiser();
-                System.out.println("#########undo##########");
-                System.out.println(facade.gv.modele.getMaps().size());
-                System.out.println(facade.gv.modele.getIndexCurMap());
-                System.out.println("#######################");
             }
             facade.gv.map.requestFocus();
         }
@@ -204,14 +197,9 @@ public class Controller {
             if (!modele.disponible) {
                 modele.stopReplay();
             }
-            if (modele.disponible && (facade.gv.modele.getIndexCurMap()+1 < facade.gv.modele.getMaps().size())) {
-                facade.gv.modele.setIndexCurMap(1);
-                facade.gv.modele.changeCoups(1);
+            if (facade.gv.modele.getnbCoups()+1 < facade.gv.modele.getMaps().size()) {
+                facade.gv.modele.changeCoups(modele.getnbCoups()+1);
                 facade.gv.actualiser();
-                System.out.println("#########redo##########");
-                System.out.println(facade.gv.modele.getMaps().size());
-                System.out.println(facade.gv.modele.getIndexCurMap());
-                System.out.println("#######################");
             }
             facade.gv.map.requestFocus();
         }
