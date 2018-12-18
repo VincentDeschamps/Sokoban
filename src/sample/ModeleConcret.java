@@ -56,6 +56,7 @@ public class ModeleConcret implements Modele{
         Map next = new Map(map);
         if (next.isMovable(next.player, x, y)){
             indexCurMap++;
+            next.player.setState(x == -1 ? 1 : x == 1 ? 2 : y == 1 ? 4 : 7);
             while (getMaps().size() > getnbCoups()) {
                 getMaps().remove(getMaps().size() - 1);
             }

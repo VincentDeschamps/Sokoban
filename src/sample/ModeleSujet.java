@@ -66,7 +66,7 @@ public class ModeleSujet extends Sujet implements Modele {
         }
         mapFile.clear();
         try {
-            Reader fin = new InputStreamReader(new FileInputStream(new File("src"+File.separator+"tableaux"+File.separator+map)), "ISO-8859-1");
+            Reader fin = new InputStreamReader(new FileInputStream(new File("src/tableaux"+File.separator+map)), "ISO-8859-1");
             BufferedReader reader = new BufferedReader(fin);
 
             String line;
@@ -102,7 +102,7 @@ public class ModeleSujet extends Sujet implements Modele {
     public ObservableList<String> LoadMapsFiles() {
         ObservableList<String> maps =  FXCollections.observableArrayList();
 
-        File directory = new File("src"+File.separator+"tableaux");
+        File directory = new File("src/tableaux");
 
         //get all the files from a directory
         File[] fList = directory.listFiles();
@@ -124,7 +124,7 @@ public class ModeleSujet extends Sujet implements Modele {
         if (!disponible) {
             stopReplay();
         }
-        createMap("src" + File.separator + "tableaux" + File.separator + mapPool.get(curSelectedMap));
+        createMap("src/tableaux" + File.separator + mapPool.get(curSelectedMap));
     }
 
     @Override
